@@ -5,77 +5,244 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inženýrské Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans">
 
     <!-- Header -->
-    <header class="bg-white shadow-md">
+    <header id="main-header" class="bg-white shadow-md sticky top-0 z-50 transition duration-300">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-gray-800">Moje Portfolio</a>
-            <div>
-                <a href="#about" class="mx-2 text-gray-600 hover:text-gray-800">O mně</a>
-                <a href="#projects" class="mx-2 text-gray-600 hover:text-gray-800">Projekty</a>
-                <a href="#contact" class="mx-2 text-gray-600 hover:text-gray-800">Kontakt</a>
+            <div class="flex items-center">
+                <a href="about.html" class="mx-2 text-teal-400 hover:text-teal-200">O mně</a>
+                <a href="#projects" class="mx-2 text-teal-400 hover:text-teal-200">Mini projekty</a>
+                <a href="semestralni-projekt.html" class="mx-2 text-teal-400 hover:text-teal-200">Semestrální projekt</a>
+                <a href="#contact" class="mx-2 text-teal-400 hover:text-teal-200">Kontakt</a>
+                <button id="theme-toggle" class="ml-4 px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center justify-center" aria-label="Přepnout režim">
+                    <span id="theme-icon">
+                        <!-- Výchozí ikona (sluníčko) -->
+                        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="currentColor"/><path stroke="currentColor" stroke-width="2" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke="currentColor" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
+                    </span>
+                </button>
             </div>
         </nav>
     </header>
+    <script>
+    // Přepínání světlého/tmavého režimu + ikona slunce/měsíc
+    function updateThemeIcon() {
+        const html = document.documentElement;
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        if (html.classList.contains('dark')) {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+        } else {
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        }
+    }
+    document.getElementById('theme-toggle').onclick = function() {
+        const html = document.documentElement;
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+        updateThemeIcon();
+    };
+    // Načtení preferovaného režimu při načtení stránky
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+    }
+    updateThemeIcon();
+
+    // Průhlednost hlavičky při scrollování
+    window.addEventListener('scroll', function() {
+        const header = document.getElementById('main-header');
+        if (window.scrollY > 30) {
+            header.style.background = 'rgba(255,255,255,0.65)'; // zvýšená průhlednost
+            header.style.backdropFilter = 'blur(8px)';
+        } else {
+            header.style.background = '';
+            header.style.backdropFilter = '';
+        }
+    });
+    </script>
 
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-8">
 
         <!-- About Me Section -->
         <section id="about" class="mb-12">
-            <h2 class="text-3xl font-bold mb-4 text-center">O mně</h2>
+            <h2 class="text-3xl font-bold mb-4 text-center">O webu</h2>
             <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
-                <img src="https://via.placeholder.com/150" alt="Moje fotka" class="rounded-full w-32 h-32 mr-8">
+                <img src="https://via.placeholder.com/150" alt="Logo webu" class="rounded-full w-32 h-32 mr-8">
                 <p class="text-lg">
-                    Vítejte na mém portfoliu! Jsem [Vaše Jméno], vášnivý inženýr se zaměřením na [Vaše Specializace]. Mám zkušenosti s vývojem inovativních řešení a rád se pouštím do nových výzev. Zde najdete ukázky mých projektů.
+                    Tento web slouží jako portfolio projektů a ukázka práce. Najdete zde přehled mých projektů, použité technologie a další informace o tom, jak web vznikal a jaké funkce nabízí. Prohlédněte si jednotlivé projekty a inspirujte se!
                 </p>
             </div>
         </section>
 
         <!-- Projects Section -->
         <section id="projects">
-            <h2 class="text-3xl font-bold mb-8 text-center">Moje Projekty</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Mini Projekty</h2>
+            <div class="relative">
+                <button id="prevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-teal-500 text-white px-3 py-2 rounded-l hover:bg-teal-700 transition">&#8592;</button>
+                <button id="nextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-teal-500 text-white px-3 py-2 rounded-r hover:bg-teal-700 transition">&#8594;</button>
+                <div id="carousel" class="flex gap-8 overflow-x-auto scroll-smooth pb-4 cursor-grab" style="scrollbar-width: none; -ms-overflow-style: none;">
 
-                <!-- Project Card 1 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src="https://via.placeholder.com/400x250" alt="Náhled projektu 1" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Název Projektu 1</h3>
-                        <p class="text-gray-600 mb-4">
-                            Stručný popis projektu. Co řeší, jaké technologie byly použity.
-                        </p>
-                        <a href="projekt1.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                    <!-- Project Card 1 -->
+                    <div class="min-w-[350px] max-w-[400px] flex-1 bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="images/hugo.png" alt="Náhled projektu 1" style="width:100%;height:220px;background:#fff;border-radius:12px 12px 0 0;object-fit:cover;display:block;">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Vytvoření webu</h3>
+                            <p class="text-gray-600 mb-4">
+                                Stručný popis projektu. Co řeší, jaké technologie byly použity.
+                            </p>
+                            <a href="projekt1.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Project Card 2 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src="https://via.placeholder.com/400x250" alt="Náhled projektu 2" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Název Projektu 2</h3>
-                        <p class="text-gray-600 mb-4">
-                            Stručný popis projektu. Co řeší, jaké technologie byly použity.
-                        </p>
-                        <a href="projekt2.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                    <!-- Project Card 2 -->
+                    <div class="min-w-[350px] max-w-[400px] flex-1 bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="images/projekt.2.png" alt="Náhled projektu 2" style="width:100%;height:220px;background:#fff;border-radius:12px 12px 0 0;object-fit:cover;display:block;">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">2D Grafika</h3>
+                            <p class="text-gray-600 mb-4">
+                                Stručný popis projektu. Co řeší, jaké technologie byly použity.
+                            </p>
+                            <a href="projekt2.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Project Card 3 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src="https://via.placeholder.com/400x250" alt="Náhled projektu 3" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Název Projektu 3</h3>
-                        <p class="text-gray-600 mb-4">
-                            Stručný popis projektu. Co řeší, jaké technologie byly použity.
-                        </p>
-                        <a href="projekt3.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                    <!-- Project Card 3 -->
+                    <div class="min-w-[350px] max-w-[400px] flex-1 bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80" alt="Náhled projektu 3 - 3D scan" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">3D Skenování</h3>
+                            <p class="text-gray-600 mb-4">
+                                Stručný popis projektu. Co řeší, jaké technologie byly použity.
+                            </p>
+                            <a href="projekt3.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                        </div>
                     </div>
-                </div>
 
+                    <!-- Project Card 4 -->
+                    <div class="min-w-[350px] max-w-[400px] flex-1 bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://via.placeholder.com/400x250" alt="Náhled projektu 4" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">3D Tisk</h3>
+                            <p class="text-gray-600 mb-4">
+                                Stručný popis projektu. Co řeší, jaké technologie byly použity.
+                            </p>
+                            <a href="projekt4.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 5 -->
+                    <div class="min-w-[350px] max-w-[400px] flex-1 bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://via.placeholder.com/400x250" alt="Náhled projektu 5" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Mikroelektronika</h3>
+                            <p class="text-gray-600 mb-4">
+                                Stručný popis projektu. Co řeší, jaké technologie byly použity.
+                            </p>
+                            <a href="projekt5.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
+            <script>
+            // Nekonečný/infinite carousel s klonováním prvků
+            const carousel = document.getElementById('carousel');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let cardWidth = carousel.querySelector('div').offsetWidth + 32; // 32px = gap-8
+            let cardCount = carousel.children.length;
+            // Klonování prvků na začátek/konec
+            function setupInfiniteCarousel() {
+                // Klonuj první 2 karty na konec a poslední 2 na začátek
+                for (let i = 0; i < 2; i++) {
+                    carousel.appendChild(carousel.children[i].cloneNode(true));
+                }
+                for (let i = cardCount - 1; i >= cardCount - 2; i--) {
+                    carousel.insertBefore(carousel.children[i].cloneNode(true), carousel.firstChild);
+                }
+                // Nastav scroll na první originální kartu
+                carousel.scrollLeft = cardWidth * 2;
+            }
+            setupInfiniteCarousel();
+            // Funkce pro nekonečné scrollování
+            function loopScroll() {
+                if (carousel.scrollLeft <= cardWidth) {
+                    carousel.scrollLeft = cardWidth * (cardCount + 1);
+                } else if (carousel.scrollLeft >= cardWidth * (cardCount + 1)) {
+                    carousel.scrollLeft = cardWidth * 2;
+                }
+            }
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.classList.add('scrolling');
+                carousel.style.cursor = 'grabbing';
+                startX = e.pageX;
+                scrollLeft = carousel.scrollLeft;
+                document.body.style.userSelect = 'none';
+            });
+            document.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                const x = e.pageX;
+                const walk = x - startX;
+                carousel.scrollLeft = scrollLeft - walk;
+                loopScroll();
+            });
+            document.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.classList.remove('scrolling');
+                carousel.style.cursor = 'grab';
+                document.body.style.userSelect = '';
+            });
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.classList.remove('scrolling');
+                carousel.style.cursor = 'grab';
+                document.body.style.userSelect = '';
+            });
+            // Touch (mobil)
+            let touchStartX = null;
+            let touchScrollLeft = null;
+            carousel.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].pageX;
+                touchScrollLeft = carousel.scrollLeft;
+            });
+            carousel.addEventListener('touchmove', function(e) {
+                if (touchStartX === null) return;
+                const x = e.touches[0].pageX;
+                const walk = x - touchStartX;
+                carousel.scrollLeft = touchScrollLeft - walk;
+                loopScroll();
+            });
+            carousel.addEventListener('touchend', function(e) {
+                touchStartX = null;
+                touchScrollLeft = null;
+            });
+            // Šipky
+            document.getElementById('prevBtn').onclick = function() {
+                carousel.scrollBy({left: -cardWidth, behavior: 'smooth'});
+                setTimeout(loopScroll, 400);
+            };
+            document.getElementById('nextBtn').onclick = function() {
+                carousel.scrollBy({left: cardWidth, behavior: 'smooth'});
+                setTimeout(loopScroll, 400);
+            };
+            // Výchozí kurzor
+            carousel.style.cursor = 'grab';
+            </script>
         </section>
 
     </main>
@@ -84,12 +251,12 @@
     <footer id="contact" class="bg-gray-800 text-white mt-12">
         <div class="container mx-auto px-6 py-8 text-center">
             <h3 class="text-2xl font-bold mb-4">Kontaktujte mě</h3>
-            <p class="mb-4">Máte zájem o spolupráci? Neváhejte se mi ozvat!</p>
+            <p class="mb-4">Máte dotaz, připomínku nebo vás zajímá něco víc o tomto webu? Neváhejte se mi ozvat!</p>
             <a href="mailto:vas.email@example.com" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                 Napsat e-mail
             </a>
-            <div class="mt-8">
-                <p>&copy; 2025 [Vaše Jméno]. Všechna práva vyhrazena.</p>
+            <div class="mt-8 text-right">
+                <p>&copy; 2025 Tomáš Doubrava. Všechna práva vyhrazena.</p>
             </div>
         </div>
     </footer>

@@ -1,0 +1,62 @@
+/* Vlastní styly pro přizpůsobení Tailwindu - Modro-zelené schéma */
+
+/* Světlý režim - výchozí */
+body {
+    background-color: #f0f4f8; /* Velmi světlá modro-šedá */
+    color: #102a43; /* Tmavě břidlicově modrá */
+}
+
+.card, .bg-white {
+    background-color: #f3f4f6 !important; /* Jemná šedá místo bílé */
+    color: inherit;
+}
+
+a {
+    color: #0d9488; /* Tyrkysová (Teal) */
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    color: #0f766e; /* Tmavší tyrkysová */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #1e3a8a; /* Výrazná modrá */
+}
+
+/* Tmavý režim přes třídu .dark na <html> */
+.dark body {
+    background-color: #0f172a; /* Tmavě modrá */
+    color: #cbd5e1; /* Světle šedá */
+}
+
+.dark .card, .dark .bg-white {
+    background-color: #1e293b !important; /* Tmavě šedá místo bílé */
+    color: inherit;
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: #93c5fd; /* Světle modrá */
+}
+
+.dark a {
+    color: #2dd4bf; /* Jasně tyrkysová */
+}
+
+.dark a:hover {
+    color: #5eead4; /* Ještě světlejší tyrkysová */
+}
+
+.dark .prose-dark-invert {
+    color: #cbd5e1;
+}
+.dark .prose-dark-invert h1, .dark .prose-dark-invert h2, .dark .prose-dark-invert h3 {
+    color: #93c5fd;
+}
+.dark .prose-dark-invert a {
+    color: #2dd4bf;
+}
+.dark .prose-dark-invert strong {
+    color: #e2e8f0;
+}
