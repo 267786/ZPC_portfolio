@@ -8,14 +8,74 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-gray-100 dark:bg-[#0f172a] text-gray-800 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+    <header id="main-header" class="bg-white shadow-md sticky top-0 z-50 transition duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-800">Moje Portfolio</a>
+            <div class="flex items-center">
+                <a href="about.html" class="mx-2 text-teal-400 hover:text-teal-200">O mně</a>
+                <a href="#projects" class="mx-2 text-teal-400 hover:text-teal-200">Mini projekty</a>
+                <a href="semestralni-projekt.html" class="mx-2 text-teal-400 hover:text-teal-200">Semestrální projekt</a>
+                <a href="#contact" class="mx-2 text-teal-400 hover:text-teal-200">Kontakt</a>
+                <button id="theme-toggle" class="ml-4 px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center justify-center" aria-label="Přepnout režim">
+                    <span id="theme-icon">
+                        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="currentColor"/><path stroke="currentColor" stroke-width="2" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke="currentColor" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
+                    </span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <script>
+    // Přepínání světlého/tmavého režimu + ikona slunce/měsíc
+    function updateThemeIcon() {
+        const html = document.documentElement;
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        if (html.classList.contains('dark')) {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+        } else {
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        }
+    }
+    document.getElementById('theme-toggle').onclick = function() {
+        const html = document.documentElement;
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+        updateThemeIcon();
+    };
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+    }
+    updateThemeIcon();
+    // Průhlednost hlavičky při scrollování
+    window.addEventListener('scroll', function() {
+        const header = document.getElementById('main-header');
+        if (window.scrollY > 30) {
+            header.style.background = 'rgba(255,255,255,0.65)';
+            header.style.backdropFilter = 'blur(8px)';
+        } else {
+            header.style.background = '';
+            header.style.backdropFilter = '';
+        }
+    });
+    </script>
     <header class="py-8 text-center">
         <h1 class="text-4xl font-extrabold text-teal-600 mb-2">Semestrální projekt</h1>
         <p class="text-lg text-gray-600 dark:text-gray-300"></p>
     </header>
     <main class="flex-1 flex flex-col items-center justify-center">
         <section class="rounded-xl shadow-lg p-8 max-w-2xl w-full text-center bg-gradient-to-br from-teal-500 to-blue-500 text-white">
-            <img src="images/velkyprojekt.png" alt="Semestrální projekt" class="mx-auto mb-6 rounded-xl shadow-lg border-4 border-white w-full max-w-md">
-            <h2 class="text-2xl font-bold mb-4">Card shuffler and dealer</h2>
+            <a href="images/velkyprojekt.png" target="_blank" rel="noopener">
+                <img src="images/velkyprojekt.png" alt="Semestrální projekt" class="mx-auto mb-6 rounded-xl shadow-lg border-4 border-white w-full max-w-md cursor-zoom-in transition hover:scale-105">
+            </a>
+            <h2 class="text-2xl font-bold mb-4">CARD SHUFFLER AND DEALAER</h2>
             <p class="mb-6">DOPLNIT</p>
             <a href="index.html" class="bg-white text-teal-600 font-bold py-2 px-4 rounded transition hover:bg-gray-100">Zpět na hlavní stránku</a>
         </section>
