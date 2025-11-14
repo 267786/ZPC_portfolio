@@ -3,37 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 1</title>
+    <title>Vytvoření webu</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
-
-    <!-- Header -->
-    <header class="bg-white shadow-md">
-        <nav class="container mx-auto px-6 py-4">
-            <a href="index.html" class="text-2xl font-bold text-gray-800">Zpět na Portfolio</a>
+<body class="bg-gray-100 dark:bg-[#0f172a] text-gray-800 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+    <header id="main-header" class="bg-white shadow-md sticky top-0 z-50 transition duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-gray-800" data-i18n="portfolio">Moje Portfolio</a>
+            <div class="flex items-center">
+                <a href="about.html" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="about">O mně</a>
+                <a href="index.html#projects" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="miniProjects">Mini projekty</a>
+                <a href="semestralni-projekt.html" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="semesterProject">Semestrální projekt</a>
+                <a href="index.html#contact" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="contact">Kontakt</a>
+                <div class="relative ml-4" id="language-selector">
+                    <button id="language-toggle" class="px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center gap-1">
+                        <span id="current-lang">CZ</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="language-dropdown" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded shadow-lg z-50">
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="cs"><span class="inline-block w-6">🇨🇿</span> Čeština</button>
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="en"><span class="inline-block w-6">🇺🇸</span> English</button>
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="de"><span class="inline-block w-6">🇩🇪</span> Deutsch</button>
+                    </div>
+                </div>
+                <button id="theme-toggle" class="ml-4 px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center justify-center" aria-label="Přepnout režim">
+                    <span id="theme-icon">
+                        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="currentColor"/><path stroke="currentColor" stroke-width="2" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke="currentColor" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
+                    </span>
+                </button>
+            </div>
         </nav>
     </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 py-8">
-        <section>
-            <h2 class="text-3xl font-bold mb-4">Název Projektu 1</h2>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <img src="https://via.placeholder.com/800x400" alt="Detail projektu 1" class="w-full h-auto object-cover mb-6 rounded-lg">
-                <p class="text-lg">
-                    Zde je podrobný popis projektu 1. Můžete zde rozvést, jaké byly cíle projektu, jaké technologie jste použili, jaký byl váš přínos a jaké byly výsledky.
-                </p>
+    <script>
+    const translations = {
+        cs: {
+            portfolio: "Moje Portfolio",
+            about: "O mně",
+            miniProjects: "Mini projekty",
+            semesterProject: "Semestrální projekt",
+            contact: "Kontakt",
+            projectTitle: "Vytvoření webu",
+            projectDescTitle: "Popis projektu",
+            projectDesc: "V tomto miniprojektu bylo úkolem vytvořit plně funkční web (právě se na něj koukáš tak se mi to asi povedlo😅). Naučil jsem se základy HTML a CSS, včetně práce s frameworkem Hugo. Výsledkem je responzivní web s podporou více jazyků a tmavého režimu.",
+            projectDesc2: "Web je navržen s důrazem na jednoduchost, přehlednost a moderní design. Všechny stránky jsou plně responsivní a umožňují snadné přepínání jazyků.",
+            projectImageCaption: "Náhled webu",
+            processTitle: "Průběh práce",
+            step1Title: "Vybírání templatu",
+            step1Desc: "Jednoznačně nejdůležitější část je volba vhodného templatu, aby by splňoval mé požadavky na design a funkce.",
+            step2Title: "Úprava webu",
+            step2Desc: "Pro mírné úpravy templatu a obecně celého webu jsem využil VSC (Visual Studio Code).",
+            step3Title: "Testování",
+            step3Desc: "Testování na různých zařízeních a optimalizace. Velkým \"gamechangerem\" bylo použití nástroje Live Server, který ti umožnil okamžitě vidět změny na webu bez nutnosti neustálého obnovování prohlížeče.",
+            step4Title: "Upload a hosting",
+            step4Desc: "Po dokončení stránek nastál asi nejtežší krok, a to jejich nahrání na hosting. Zde jsem využil GitHub Pages pro jednoduché a bezplatné hostování.",
+            resultsTitle: "Výsledky",
+            resultsDesc: "Výsledkem projektu je plně funkční portfolio web s moderními funkcemi:",
+            result1: "Responzivní design fungující na všech zařízeních",
+            result2: "Podpora 3 jazyků (čeština, angličtina, němčina)",
+            result3: "Tmavý režim s persistentní nastavenou",
+            result4: "Optimalizovaná rychlost načítání",
+            learnedTitle: "Co jsem se naučil",
+            learned1: "Základy HTML a CSS  ",
+            learned2: "Použití Tailwind CSS pro rychlý styling",
+            learned3: "Implementace jazykového přepínače",
+            learned4: "Nastavení tmavého/světlého režimu",
+            learned5: "Základy práce s frameworkem Hugo",
+            galleryTitle: "Galerie",
+            backToHome: "Zpět na hlavní stránku",
+            copyright: "© 2025 Tomáš Doubrava. Všechna práva vyhrazena."
+        },
+        en: {
+            portfolio: "My Portfolio",
+            about: "About Me",
+            miniProjects: "Mini Projects",
+            semesterProject: "Semester Project",
+            contact: "Contact",
+            projectTitle: "Website Creation",
+            projectDescTitle: "Project Description",
+            projectDesc: "In this mini project, I got acquainted with creating a modern website. I learned the basics of HTML, CSS (Tailwind) and JavaScript, including working with the Hugo framework. The result is a responsive website with support for multiple languages and dark mode.",
+            projectDesc2: "The website is designed with an emphasis on simplicity, clarity and modern design. All pages are fully responsive and allow easy language switching.",
+            projectImageCaption: "Website preview",
+            processTitle: "Workflow",
+            step1Title: "Planning and design",
+            step1Desc: "Setting the website goal, designing structure and design, selecting technologies.",
+            step2Title: "Frontend development",
+            step2Desc: "Creating HTML structure, styling with Tailwind CSS, implementing responsive design.",
+            step3Title: "Feature implementation",
+            step3Desc: "Adding JavaScript for interactivity, multi-language support and mode switching.",
+            step4Title: "Upload and hosting",
+            step4Desc: "Testing on various devices, speed optimization and web deployment.",
+            resultsTitle: "Results",
+            resultsDesc: "The project resulted in a fully functional portfolio website with modern features:",
+            result1: "Responsive design working on all devices",
+            result2: "Support for 3 languages (Czech, English, German)",
+            result3: "Dark mode with persistent settings",
+            result4: "Optimized loading speed",
+            learnedTitle: "What I learned",
+            learned1: "Basics of HTML, CSS and JavaScript",
+            learned2: "Using Tailwind CSS for fast styling",
+            learned3: "Implementation of language switcher",
+            learned4: "Basics of working with Hugo framework",
+            learned5: "Setting up dark/light mode",
+            galleryTitle: "Gallery",
+            backToHome: "Back to Home",
+            copyright: "© 2025 Tomáš Doubrava. All rights reserved."
+        },
+        de: {
+            portfolio: "Mein Portfolio",
+            about: "Über mich",
+            miniProjects: "Mini-Projekte",
+            semesterProject: "Semesterprojekt",
+            contact: "Kontakt",
+            projectTitle: "Website-Erstellung",
+            projectDescTitle: "Projektbeschreibung",
+            projectDesc: "In diesem Mini-Projekt habe ich mich mit der Erstellung einer modernen Website vertraut gemacht. Ich habe die Grundlagen von HTML, CSS (Tailwind) und JavaScript gelernt, einschließlich der Arbeit mit dem Hugo-Framework. Das Ergebnis ist eine responsive Website mit Unterstützung für mehrere Sprachen und Dunkelmodus.",
+            projectDesc2: "Die Website ist mit Schwerpunkt auf Einfachheit, Klarheit und modernem Design konzipiert. Alle Seiten sind vollständig responsiv und ermöglichen einfaches Sprachumschalten.",
+            projectImageCaption: "Website-Vorschau",
+            processTitle: "Arbeitsablauf",
+            step1Title: "Planung und Entwurf",
+            step1Desc: "Festlegung des Website-Ziels, Entwurf der Struktur und des Designs, Auswahl der Technologien.",
+            step2Title: "Frontend-Entwicklung",
+            step2Desc: "Erstellung der HTML-Struktur, Styling mit Tailwind CSS, Implementierung von Responsive Design.",
+            step3Title: "Feature-Implementierung",
+            step3Desc: "Hinzufügen von JavaScript für Interaktivität, mehrsprachige Unterstützung und Moduswechsel.",
+            step4Title: "Upload und Hosting",
+            step4Desc: "Testen auf verschiedenen Geräten, Geschwindigkeitsoptimierung und Web-Bereitstellung.",
+            resultsTitle: "Ergebnisse",
+            resultsDesc: "Das Projekt führte zu einer voll funktionsfähigen Portfolio-Website mit modernen Funktionen:",
+            result1: "Responsives Design für alle Geräte",
+            result2: "Unterstützung für 3 Sprachen (Tschechisch, Englisch, Deutsch)",
+            result3: "Dunkelmodus mit persistenten Einstellungen",
+            result4: "Optimierte Ladegeschwindigkeit",
+            learnedTitle: "Was ich gelernt habe",
+            learned1: "Grundlagen von HTML, CSS und JavaScript",
+            learned2: "Verwendung von Tailwind CSS für schnelles Styling",
+            learned3: "Implementierung eines Sprachumschalters",
+            learned4: "Grundlagen der Arbeit mit Hugo-Framework",
+            learned5: "Einrichten des Dunkel-/Hellmodus",
+            galleryTitle: "Galerie",
+            backToHome: "Zurück zur Startseite",
+            copyright: "© 2025 Tomáš Doubrava. Alle Rechte vorbehalten."
+        }
+    };
+    let currentLang=localStorage.getItem('language')||'cs';function setLanguage(lang){currentLang=lang;localStorage.setItem('language',lang);document.documentElement.lang=lang;const langLabels={cs:'CZ',en:'EN',de:'DE'};document.getElementById('current-lang').textContent=langLabels[lang];document.querySelectorAll('[data-i18n]').forEach(elem=>{const key=elem.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){elem.textContent=translations[lang][key];}});}
+    document.getElementById('language-toggle').onclick=function(e){e.stopPropagation();document.getElementById('language-dropdown').classList.toggle('hidden');};document.querySelectorAll('.lang-option').forEach(btn=>{btn.onclick=function(){const selectedLang=this.getAttribute('data-lang');setLanguage(selectedLang);document.getElementById('language-dropdown').classList.add('hidden');};});document.addEventListener('click',function(e){const dropdown=document.getElementById('language-dropdown');const toggle=document.getElementById('language-toggle');if(!dropdown.contains(e.target)&&!toggle.contains(e.target)){dropdown.classList.add('hidden');}});document.addEventListener('DOMContentLoaded',function(){const savedLang=localStorage.getItem('language')||'cs';setLanguage(savedLang);});
+    function updateThemeIcon(){const html=document.documentElement;const sunIcon=document.getElementById('sun-icon');const moonIcon=document.getElementById('moon-icon');if(html.classList.contains('dark')){sunIcon.classList.add('hidden');moonIcon.classList.remove('hidden');}else{sunIcon.classList.remove('hidden');moonIcon.classList.add('hidden');}}
+    document.getElementById('theme-toggle').onclick=function(){const html=document.documentElement;if(html.classList.contains('dark')){html.classList.remove('dark');localStorage.setItem('theme','light');}else{html.classList.add('dark');localStorage.setItem('theme','dark');}updateThemeIcon();};if(localStorage.getItem('theme')==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');localStorage.setItem('theme','dark');}updateThemeIcon();window.addEventListener('scroll',function(){const header=document.getElementById('main-header');if(window.scrollY>30){header.style.background='rgba(255,255,255,0.65)';header.style.backdropFilter='blur(8px)';}else{header.style.background='';header.style.backdropFilter='';}});
+    </script>
+    <main class="flex-1 flex flex-col items-center justify-center px-4 py-8">
+        <!-- Popis projektu -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="projectDescTitle">Popis projektu</h2>
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                    <div class="flex-1">
+                        <p class="mb-4" data-i18n="projectDesc">
+                            V tomto mini projektu jsem se seznámil s tvorbou moderního webu. Naučil jsem se základy HTML a CSS, včetně práce s frameworkem Hugo. Výsledkem je responzivní web s podporou více jazyků a tmavého režimu.
+                        </p>
+                        <p class="mb-2 text-sm text-gray-300" data-i18n="projectDesc2">
+                            Web je navržen s důrazem na jednoduchost, přehlednost a moderní design. Všechny stránky jsou plně responsivní a umožňují snadné přepínání jazyků.
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0 flex flex-col items-center">
+                        <!-- Kliknutí na zobrazený úvodní obrázek otevře lightbox s původním hugo.png -->
+                        <img src="images/stranka.png" alt="Náhled webu" class="rounded-xl shadow-lg border-4 border-white w-48 h-32 object-cover mb-2 cursor-pointer hover:opacity-90 transition" onclick="openLightbox(this.src)">
+                        <span class="text-xs text-gray-400" data-i18n="projectImageCaption">Náhled webu</span>
+                    </div>
+                </div>
             </div>
         </section>
-    </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white mt-12">
-        <div class="container mx-auto px-6 py-8 text-center">
-            <p>&copy; 2025 [Vaše Jméno]. Všechna práva vyhrazena.</p>
+        <!-- Průběh práce -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="processTitle">Průběh práce</h2>
+                <ol class="space-y-4 mt-4">
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold leading-none shrink-0">I</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step1Title">Plánování a návrh</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step1Desc">Stanovení cíle webu, návrh struktury a designu, výběr technologií.</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold leading-none shrink-0">II</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step2Title">Tvorba obsahu</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step2Desc">Psaní textů, příprava obrázků, tvorba struktury HTML.</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold leading-none shrink-0">III</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step3Title">Styling a funkce</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step3Desc">Styling pomocí Tailwind CSS, přidání jazykového přepínače a tmavého režimu v JavaScriptu.</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold leading-none shrink-0">IV</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step4Title">Testování a nasazení</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step4Desc">Ověření funkčnosti, responsivity a nasazení webu na hosting.</div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Výsledky -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="resultsTitle">Výsledky</h2>
+                <p class="mb-4" data-i18n="resultsDesc">
+                    Výsledkem projektu je plně funkční portfolio web s moderním designem. Web podporuje tři jazyky (čeština, angličtina, němčina), tmavý/světlý režim a je plně responzivní pro všechna zařízení.
+                </p>
+                <ul class="space-y-2 text-gray-300">
+                    <li class="flex items-center gap-2"><span class="text-teal-400">●</span> <span data-i18n="result1">Responzivní design pro mobil, tablet i desktop</span></li>
+                    <li class="flex items-center gap-2"><span class="text-teal-400">●</span> <span data-i18n="result2">Podpora 3 jazyků s přepínačem</span></li>
+                    <li class="flex items-center gap-2"><span class="text-teal-400">●</span> <span data-i18n="result3">Tmavý režim s persistencí nastavení</span></li>
+                    <li class="flex items-center gap-2"><span class="text-teal-400">●</span> <span data-i18n="result4">Optimalizovaná rychlost načítání</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Co jsem se naučil -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="learnedTitle">Co jsem se naučil</h2>
+                <ul class="space-y-2 mt-4">
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned1">Základy HTML, CSS a JavaScriptu</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned2">Použití Tailwind CSS pro rychlý styling</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned3">Implementace jazykového přepínače</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned4">Základy práce s frameworkem Hugo</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned5">Nastavení tmavého/světlého režimu</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Galerie -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <div class="relative overflow-hidden">
+                    <div id="gallery-carousel" class="flex gap-4 pb-4">
+                        <img src="images/stranka.png" alt="Projekt obrázek 1" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/hugo.png" alt="Projekt obrázek 2" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/miniprojekt 1a.png" alt="Projekt obrázek 3" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/miniprojekt 1b.png" alt="Projekt obrázek 4" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <!-- Duplikované obrázky pro nekonečné scrollování -->
+                        <img src="images/stranka.png" alt="Projekt obrázek 1" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/hugo.png" alt="Projekt obrázek 2" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/miniprojekt 1a.png" alt="Projekt obrázek 3" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/miniprojekt 1b.png" alt="Projekt obrázek 4" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox -->
+        <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50" onclick="closeLightbox()">
+            <span class="absolute top-4 right-8 text-white text-4xl cursor-pointer hover:text-gray-300">&times;</span>
+            <img id="lightbox-img" src="" alt="Zvětšený obrázek" class="max-w-[90%] max-h-[90%] object-contain">
         </div>
-    </footer>
 
+        <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox').style.display = 'flex';
+            document.getElementById('lightbox-img').src = src;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Nekonečné automatické scrollování galerie
+        const gallery = document.getElementById('gallery-carousel');
+        let scrollPosition = 0;
+        let isUserInteracting = false;
+
+        function infiniteScroll() {
+            if (!isUserInteracting) {
+                scrollPosition += 1; // Rychlost posunu (px za frame)
+                gallery.style.transform = `translateX(-${scrollPosition}px)`;
+
+                // Reset pozice pro nekonečné scrollování
+                const itemWidth = 280; // šířka obrázku + gap
+                const totalItems = 4;
+                const resetPoint = itemWidth * totalItems;
+                
+                if (scrollPosition >= resetPoint) {
+                    scrollPosition = 0;
+                }
+            }
+            requestAnimationFrame(infiniteScroll);
+        }
+
+        // Pause při interakci myší
+        gallery.addEventListener('mouseenter', () => { isUserInteracting = true; });
+        gallery.addEventListener('mouseleave', () => { isUserInteracting = false; });
+
+        infiniteScroll();
+        infiniteScroll();
+        </script>
+
+        <!-- Navigation to other projects -->
+        <div class="flex justify-between items-center max-w-3xl w-full mb-4">
+            <a href="projekt4.html" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                <span>Miniprojekt 4</span>
+            </a>
+            <a href="projekt2.html" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition">
+                <span>Miniprojekt 2</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+
+        <a href="index.html" class="inline-block bg-white text-teal-600 font-bold py-2 px-4 rounded transition hover:bg-gray-100" data-i18n="backToHome">Zpět na hlavní stránku</a>
+    </main>
+    <footer class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+        <p data-i18n="copyright">&copy; 2025 Tomáš Doubrava. Všechna práva vyhrazena.</p>
+    </footer>
 </body>
 </html>
