@@ -10,12 +10,32 @@
 <body class="bg-gray-100 dark:bg-[#0f172a] text-gray-800 dark:text-gray-100 font-sans min-h-screen flex flex-col">
     <header id="main-header" class="bg-white shadow-md sticky top-0 z-50 transition duration-300">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-gray-800">Moje Portfolio</a>
+            <a href="index.html" class="text-2xl font-bold text-gray-800" data-i18n="portfolio">Moje Portfolio</a>
             <div class="flex items-center">
-                <a href="about.html" class="mx-2 text-teal-400 hover:text-teal-200">O mně</a>
-                <a href="#projects" class="mx-2 text-teal-400 hover:text-teal-200">Mini projekty</a>
-                <a href="semestralni-projekt.html" class="mx-2 text-teal-400 hover:text-teal-200">Semestrální projekt</a>
-                <a href="#contact" class="mx-2 text-teal-400 hover:text-teal-200">Kontakt</a>
+                <a href="about.html" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="about">O mně</a>
+                <a href="index.html#projects" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="miniProjects">Mini projekty</a>
+                <a href="semestralni-projekt.html" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="semesterProject">Semestrální projekt</a>
+                <a href="index.html#contact" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="contact">Kontakt</a>
+                
+                <!-- Language Selector -->
+                <div class="relative ml-4" id="language-selector">
+                    <button id="language-toggle" class="px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center gap-1">
+                        <span id="current-lang">CZ</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="language-dropdown" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded shadow-lg z-50">
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="cs">
+                            <span class="inline-block w-6">🇨🇿</span> Čeština
+                        </button>
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="en">
+                            <span class="inline-block w-6">🇺🇸</span> English
+                        </button>
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="de">
+                            <span class="inline-block w-6">🇩🇪</span> Deutsch
+                        </button>
+                    </div>
+                </div>
+                
                 <button id="theme-toggle" class="ml-4 px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center justify-center" aria-label="Přepnout režim">
                     <span id="theme-icon">
                         <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="currentColor"/><path stroke="currentColor" stroke-width="2" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -26,6 +46,95 @@
         </nav>
     </header>
     <script>
+    // ===== TRANSLATIONS =====
+    const translations = {
+        cs: {
+            portfolio: "Moje Portfolio",
+            about: "O mně",
+            miniProjects: "Mini projekty",
+            semesterProject: "Semestrální projekt",
+            contact: "Kontakt",
+            semesterProjectTitle: "Semestrální projekt",
+            projectDescription: "DOPLNIT",
+            backToHome: "Zpět na hlavní stránku",
+            copyright: "© 2025 Tomáš Doubrava. Všechna práva vyhrazena."
+        },
+        en: {
+            portfolio: "My Portfolio",
+            about: "About Me",
+            miniProjects: "Mini Projects",
+            semesterProject: "Semester Project",
+            contact: "Contact",
+            semesterProjectTitle: "Semester Project",
+            projectDescription: "TO BE ADDED",
+            backToHome: "Back to Home",
+            copyright: "© 2025 Tomáš Doubrava. All rights reserved."
+        },
+        de: {
+            portfolio: "Mein Portfolio",
+            about: "Über mich",
+            miniProjects: "Mini-Projekte",
+            semesterProject: "Semesterprojekt",
+            contact: "Kontakt",
+            semesterProjectTitle: "Semesterprojekt",
+            projectDescription: "HINZUZUFÜGEN",
+            backToHome: "Zurück zur Startseite",
+            copyright: "© 2025 Tomáš Doubrava. Alle Rechte vorbehalten."
+        }
+    };
+
+    // Language switching
+    let currentLang = localStorage.getItem('language') || 'cs';
+    
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('language', lang);
+        document.documentElement.lang = lang;
+        
+        // Update current language display
+        const langLabels = { cs: 'CZ', en: 'EN', de: 'DE' };
+        document.getElementById('current-lang').textContent = langLabels[lang];
+        
+        // Update all translated elements
+        document.querySelectorAll('[data-i18n]').forEach(elem => {
+            const key = elem.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                elem.textContent = translations[lang][key];
+            }
+        });
+    }
+    
+    // Language dropdown toggle
+    document.getElementById('language-toggle').onclick = function(e) {
+        e.stopPropagation();
+        document.getElementById('language-dropdown').classList.toggle('hidden');
+    };
+    
+    // Language selection
+    document.querySelectorAll('.lang-option').forEach(btn => {
+        btn.onclick = function() {
+            const selectedLang = this.getAttribute('data-lang');
+            setLanguage(selectedLang);
+            document.getElementById('language-dropdown').classList.add('hidden');
+        };
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        const dropdown = document.getElementById('language-dropdown');
+        const toggle = document.getElementById('language-toggle');
+        if (!dropdown.contains(e.target) && !toggle.contains(e.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
+    
+    // Initialize language on page load - must run after DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedLang = localStorage.getItem('language') || 'cs';
+        setLanguage(savedLang);
+    });
+
+    // ===== THEME TOGGLE =====
     // Přepínání světlého/tmavého režimu + ikona slunce/měsíc
     function updateThemeIcon() {
         const html = document.documentElement;
@@ -50,8 +159,12 @@
         }
         updateThemeIcon();
     };
-    if (localStorage.getItem('theme') === 'dark') {
+    // Výchozí je dark mode
+    if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.remove('dark');
+    } else {
         document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
     }
     updateThemeIcon();
     // Průhlednost hlavičky při scrollování
@@ -67,7 +180,7 @@
     });
     </script>
     <header class="py-8 text-center">
-        <h1 class="text-4xl font-extrabold text-teal-600 mb-2">Semestrální projekt</h1>
+        <h1 class="text-4xl font-extrabold text-teal-600 mb-2" data-i18n="semesterProjectTitle">Semestrální projekt</h1>
         <p class="text-lg text-gray-600 dark:text-gray-300"></p>
     </header>
     <main class="flex-1 flex flex-col items-center justify-center">
@@ -75,13 +188,13 @@
             <a href="images/velkyprojekt.png" target="_blank" rel="noopener">
                 <img src="images/velkyprojekt.png" alt="Semestrální projekt" class="mx-auto mb-6 rounded-xl shadow-lg border-4 border-white w-full max-w-md cursor-zoom-in transition hover:scale-105">
             </a>
-            <h2 class="text-2xl font-bold mb-4">CARD SHUFFLER AND DEALAER</h2>
-            <p class="mb-6">DOPLNIT</p>
-            <a href="index.html" class="bg-white text-teal-600 font-bold py-2 px-4 rounded transition hover:bg-gray-100">Zpět na hlavní stránku</a>
+            <h2 class="text-2xl font-bold mb-4">CARD SHUFFLER AND DEALER</h2>
+            <p class="mb-6" data-i18n="projectDescription">DOPLNIT</p>
+            <a href="index.html" class="bg-white text-teal-600 font-bold py-2 px-4 rounded transition hover:bg-gray-100" data-i18n="backToHome">Zpět na hlavní stránku</a>
         </section>
     </main>
     <footer class="py-8 text-right text-sm text-gray-500 dark:text-gray-400">
-        <p>&copy; 2025 Tomáš Doubrava. Všechna práva vyhrazena.</p>
+        <p data-i18n="copyright">&copy; 2025 Tomáš Doubrava. Všechna práva vyhrazena.</p>
     </footer>
 </body>
 </html>

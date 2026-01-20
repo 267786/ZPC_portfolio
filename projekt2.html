@@ -3,37 +3,447 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 2</title>
+    <title>2D Grafika a Řezání</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
-
-    <!-- Header -->
-    <header class="bg-white shadow-md">
-        <nav class="container mx-auto px-6 py-4">
-            <a href="index.html" class="text-2xl font-bold text-gray-800">Zpět na Portfolio</a>
+<body class="bg-gray-100 dark:bg-[#0f172a] text-gray-800 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+    <header id="main-header" class="bg-white shadow-md sticky top-0 z-50 transition duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-gray-800" data-i18n="portfolio">Moje Portfolio</a>
+            <div class="flex items-center">
+                <a href="about.html" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="about">O mně</a>
+                <a href="index.html#projects" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="miniProjects">Mini projekty</a>
+                <a href="semestralni-projekt.html" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="semesterProject">Semestrální projekt</a>
+                <a href="index.html#contact" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="contact">Kontakt</a>
+                <div class="relative ml-4" id="language-selector">
+                    <button id="language-toggle" class="px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center gap-1">
+                        <span id="current-lang">CZ</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="language-dropdown" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded shadow-lg z-50">
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="cs"><span class="inline-block w-6">🇨🇿</span> Čeština</button>
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="en"><span class="inline-block w-6">🇺🇸</span> English</button>
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="de"><span class="inline-block w-6">🇩🇪</span> Deutsch</button>
+                    </div>
+                </div>
+                <button id="theme-toggle" class="ml-4 px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center justify-center" aria-label="Přepnout režim">
+                    <span id="theme-icon">
+                        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="currentColor"/><path stroke="currentColor" stroke-width="2" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke="currentColor" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
+                    </span>
+                </button>
+            </div>
         </nav>
     </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 py-8">
-        <section>
-            <h2 class="text-3xl font-bold mb-4">Název Projektu 2</h2>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <img src="https://via.placeholder.com/800x400" alt="Detail projektu 2" class="w-full h-auto object-cover mb-6 rounded-lg">
-                <p class="text-lg">
-                    Zde je podrobný popis projektu 2. Můžete zde rozvést, jaké byly cíle projektu, jaké technologie jste použili, jaký byl váš přínos a jaké byly výsledky.
-                </p>
+    <script>
+    const translations = {
+        cs: {
+            portfolio: "Moje Portfolio",
+            about: "O mně",
+            miniProjects: "Mini projekty",
+            semesterProject: "Semestrální projekt",
+            contact: "Kontakt",
+            projectTitle: "2D Grafika a Řezání",
+            projectDescTitle: "Popis projektu",
+            projectDesc: "V tomto projektu jsem se věnoval tvorbě 2D grafiky pro řezací ploter a pro laserové řezání. Hlavním úkolem bylo navrhnout a vytvořit 2D model připravený pro řezání na plotteru a laseru. Projekt zahrnoval návrh, digitalizaci a přípravu souborů ve formátu DXF.",
+            projectDesc2: "Práce spočívala v návrhu různých částí ovečky - předku, boku a celkového tvaru. Každá část byla navržena tak, aby bylo možné ji vyřezat laserem a následně sestavit do 3D objektu. V druhé části se jednalo o vyříznutí loga pomocí plotteru",
+            projectImageCaption: "INKSCAPE - návrh LOGA",
+            processTitle: "Průběh práce (LOGO)",
+            step1Title:"Návrh konceptu na papír",
+            step1Desc: "Náčrt jednoduchého Loga na papír.",
+            step2Title:"Převední do digitalní podoby",
+            step2Desc: "Pomocí fotoaparátu :D",
+            step3Title: "Vektorizace",
+            step3Desc: "Vektorizace LOGA pomocí programu INKSCAPE",
+            step4Title: "Export DVG souboru",
+            step4Desc: "Export souboru ve formátu DVG připravených pro řezání na plotteru.",
+            resultsTitle: "Výsledky",
+            resultsDesc: "Výsledkem projektu je kompletní sada souborů pro řezání na plotteru, která kombinuje kreativní design s technickou přesností:",
+            result1: "Kompletní sada SVG souborů pro všechny části loga připravené k řezání",
+            result2: "Optimalizované křivky a rozměry pro přesné řezání na plotteru",
+            result3: "Funkční vektorový návrh připravený pro výstřih z fólie",
+            result4: "Pochopení workflow od náčrtu po přípravu pro výrobu na plotteru",
+            learnedTitle: "Co jsem se naučil",
+            learned1: "Práce s Inkscape softwarem pro vektorovou grafiku",
+            learned2: "Vektorizace ručních náčrtů do digitální podoby",
+            learned3: "Příprava souborů pro řezání na plotteru (SVG formát)",
+            learned4: "Optimalizace návrhů pro řezání fólií",
+            learned5: "Workflow od papírového náčrtu po finální výstřih",
+            galleryTitle: "Galerie",
+            backToHome: "Zpět na hlavní stránku",
+            copyright: "© 2025 Tomáš Doubrava. Všechna práva vyhrazena."
+        },
+        en: {
+            portfolio: "My Portfolio",
+            about: "About Me",
+            miniProjects: "Mini Projects",
+            semesterProject: "Semester Project",
+            contact: "Contact",
+            projectTitle: "2D Graphics and Cutting",
+            projectDescTitle: "Project Description",
+            projectDesc: "In this project, I focused on creating 2D graphics for plotter cutting. The main task was to design and create a logo ready for cutting on a plotter. The project included sketching, digitization and preparation of files in SVG format.",
+            projectDesc2: "The work involved creating a hand-drawn logo sketch, digitizing it using a camera, and vectorizing it in Inkscape software for plotter cutting.",
+            projectImageCaption: "INKSCAPE - logo design",
+            processTitle: "Workflow",
+            step1Title: "Paper concept sketch",
+            step1Desc: "Creating a simple logo sketch on paper with basic design elements.",
+            step2Title: "Digital conversion",
+            step2Desc: "Converting the paper sketch to digital format using a camera.",
+            step3Title: "Vectorization",
+            step3Desc: "Vectorizing the logo using Inkscape software for precise cutting paths.",
+            step4Title: "SVG file export",
+            step4Desc: "Exporting the file in SVG format ready for plotter cutting.",
+            resultsTitle: "Results",
+            resultsDesc: "The result of the project is a complete set of files for plotter cutting that combines creative design with technical precision:",
+            result1: "Complete set of SVG files for logo parts ready for cutting",
+            result2: "Optimized curves and dimensions for precise plotter cutting",
+            result3: "Functional vector design ready for foil cutting",
+            result4: "Understanding workflow from sketch to plotter production preparation",
+            learnedTitle: "What I learned",
+            learned1: "Working with Inkscape software for vector graphics",
+            learned2: "Vectorizing hand-drawn sketches into digital format",
+            learned3: "Preparing files for plotter cutting (SVG format)",
+            learned4: "Optimizing designs for foil cutting properties",
+            learned5: "Workflow from paper sketch to final cut output",
+            galleryTitle: "Gallery",
+            backToHome: "Back to Home",
+            copyright: "© 2025 Tomáš Doubrava. All rights reserved."
+        },
+        de: {
+            portfolio: "Mein Portfolio",
+            about: "Über mich",
+            miniProjects: "Mini-Projekte",
+            semesterProject: "Semesterprojekt",
+            contact: "Kontakt",
+            projectTitle: "2D-Grafik und Schneiden",
+            projectDescTitle: "Projektbeschreibung",
+            projectDesc: "In diesem Projekt konzentrierte ich mich auf die Erstellung von 2D-Grafiken für das Plotterschneiden. Die Hauptaufgabe bestand darin, ein Logo zu entwerfen und zu erstellen, das für das Schneiden mit einem Plotter geeignet ist. Das Projekt umfasste Skizzierung, Digitalisierung und Vorbereitung von Dateien im SVG-Format.",
+            projectDesc2: "Die Arbeit umfasste die Erstellung einer handgezeichneten Logo-Skizze, deren Digitalisierung mit einer Kamera und die Vektorisierung mit Inkscape-Software für das Plotterschneiden.",
+            projectImageCaption: "INKSCAPE - Logo-Design",
+            processTitle: "Arbeitsablauf",
+            step1Title: "Papier-Konzeptskizze",
+            step1Desc: "Erstellen einer einfachen Logo-Skizze auf Papier mit grundlegenden Designelementen.",
+            step2Title: "Digitale Konvertierung",
+            step2Desc: "Konvertierung der Papierskizze in digitales Format mit einer Kamera.",
+            step3Title: "Vektorisierung",
+            step3Desc: "Vektorisierung des Logos mit Inkscape-Software für präzise Schneidpfade.",
+            step4Title: "SVG-Datei-Export",
+            step4Desc: "Export der Datei im SVG-Format, bereit für das Plotterschneiden.",
+            resultsTitle: "Ergebnisse",
+            resultsDesc: "Das Ergebnis des Projekts ist ein vollständiger Satz von Dateien zum Plotterschneiden, der kreatives Design mit technischer Präzision kombiniert:",
+            result1: "Vollständiger Satz von SVG-Dateien für Logo-Teile zum Schneiden bereit",
+            result2: "Optimierte Kurven und Abmessungen für präzises Plotterschneiden",
+            result3: "Funktionales Vektordesign bereit für Folienschnitt",
+            result4: "Verständnis des Workflows von der Skizze bis zur Plotter-Produktionsvorbereitung",
+            learnedTitle: "Was ich gelernt habe",
+            learned1: "Arbeiten mit Inkscape-Software für Vektorgrafiken",
+            learned2: "Vektorisierung handgezeichneter Skizzen in digitales Format",
+            learned3: "Vorbereitung von Dateien für das Plotterschneiden (SVG-Format)",
+            learned4: "Optimierung von Designs für Folienschnitt-Eigenschaften",
+            learned5: "Workflow von der Papierskizze bis zum finalen Schnittoutput",
+            galleryTitle: "Galerie",
+            backToHome: "Zurück zur Startseite",
+            copyright: "© 2025 Tomáš Doubrava. Alle Rechte vorbehalten."
+        }
+    };
+    let currentLang=localStorage.getItem('language')||'cs';function setLanguage(lang){currentLang=lang;localStorage.setItem('language',lang);document.documentElement.lang=lang;const langLabels={cs:'CZ',en:'EN',de:'DE'};document.getElementById('current-lang').textContent=langLabels[lang];document.querySelectorAll('[data-i18n]').forEach(elem=>{const key=elem.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){elem.textContent=translations[lang][key];}});}
+    document.getElementById('language-toggle').onclick=function(e){e.stopPropagation();document.getElementById('language-dropdown').classList.toggle('hidden');};document.querySelectorAll('.lang-option').forEach(btn=>{btn.onclick=function(){const selectedLang=this.getAttribute('data-lang');setLanguage(selectedLang);document.getElementById('language-dropdown').classList.add('hidden');};});document.addEventListener('click',function(e){const dropdown=document.getElementById('language-dropdown');const toggle=document.getElementById('language-toggle');if(!dropdown.contains(e.target)&&!toggle.contains(e.target)){dropdown.classList.add('hidden');}});document.addEventListener('DOMContentLoaded',function(){const savedLang=localStorage.getItem('language')||'cs';setLanguage(savedLang);});
+    function updateThemeIcon(){const html=document.documentElement;const sunIcon=document.getElementById('sun-icon');const moonIcon=document.getElementById('moon-icon');if(html.classList.contains('dark')){sunIcon.classList.add('hidden');moonIcon.classList.remove('hidden');}else{sunIcon.classList.remove('hidden');moonIcon.classList.add('hidden');}}
+    document.getElementById('theme-toggle').onclick=function(){const html=document.documentElement;if(html.classList.contains('dark')){html.classList.remove('dark');localStorage.setItem('theme','light');}else{html.classList.add('dark');localStorage.setItem('theme','dark');}updateThemeIcon();};if(localStorage.getItem('theme')==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');localStorage.setItem('theme','dark');}updateThemeIcon();window.addEventListener('scroll',function(){const header=document.getElementById('main-header');if(window.scrollY>30){header.style.background='rgba(255,255,255,0.65)';header.style.backdropFilter='blur(8px)';}else{header.style.background='';header.style.backdropFilter='';}});
+    </script>
+    <main class="flex-1 flex flex-col items-center justify-center px-4 py-8">
+        <!-- Popis projektu -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="projectDescTitle">Popis projektu</h2>
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                    <div class="flex-1">
+                        <p class="mb-4" data-i18n="projectDesc">
+                            V tomto projektu jsem se věnoval tvorbě 2D grafiky pro laserové řezání. Hlavním úkolem bylo navrhnout a vytvořit 2D model ovečky (SHEEP) připravený pro řezání laserem. Projekt zahrnoval návrh, digitalizaci a přípravu souborů ve formátu DXF.
+                        </p>
+                        <p class="mb-2 text-sm text-gray-300" data-i18n="projectDesc2">
+                            Práce spočívala v návrhu různých částí ovečky - předku, boku a celkového tvaru. Každá část byla navržena tak, aby bylo možné ji vyřezat laserem a následně sestavit do 3D objektu.
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0 flex flex-col items-center">
+                        <img src="images/projekt.2.png" alt="INKSCAPE - návrh loga" class="rounded-xl shadow-lg border-4 border-white w-48 h-32 object-cover mb-2 cursor-pointer hover:opacity-90 transition" onclick="openLightbox(this.src)">
+                        <span class="text-xs text-gray-400" data-i18n="projectImageCaption">INKSCAPE - návrh loga</span>
+                    </div>
+                </div>
             </div>
         </section>
-    </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white mt-12">
-        <div class="container mx-auto px-6 py-8 text-center">
-            <p>&copy; 2025 [Vaše Jméno]. Všechna práva vyhrazena.</p>
+        <!-- Průběh práce -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="processTitle">Průběh práce</h2>
+                <ol class="space-y-4 mt-4">
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold leading-none shrink-0">I</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step1Title">Návrh konceptu</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step1Desc">Návrh tvaru ovečky, rozdělení na jednotlivé části (předek, bok) a plánování sestavení.</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold leading-none shrink-0">II</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step2Title">Tvorba 2D návrhu</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step2Desc">Vytvoření vektorového návrhu v CAD softwaru s přesným rozměřením pro řezání.</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold leading-none shrink-0">III</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step3Title">Příprava pro výrobu</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step3Desc">Optimalizace křivek, kontrola rozměrů a příprava souborů pro laserové řezání.</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold leading-none shrink-0">IV</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step4Title">Export DXF souborů</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step4Desc">Export jednotlivých částí do formátu DXF kompatibilního s laserovým řezačem.</div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Výsledky -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="resultsTitle">Výsledky</h2>
+                <p class="mb-4" data-i18n="resultsDesc">
+                    Výsledkem projektu je kompletní sada souborů pro laserové řezání ovečky, která kombinuje kreativní design s technickou přesností:
+                </p>
+                <ul class="space-y-2 text-gray-300">
+                    <li class="flex items-center gap-2"><span class="text-teal-400">●</span> <span data-i18n="result1">Kompletní sada DXF souborů pro všechny části ovečky připravené k řezání</span></li>
+                    <li class="flex items-center gap-2"><span class="text-teal-400">●</span> <span data-i18n="result2">Optimalizované křivky a rozměry pro přesné laserové řezání</span></li>
+                    <li class="flex items-center gap-2"><span class="text-teal-400">●</span> <span data-i18n="result3">Funkční 2D návrh připravený pro 3D sestavení po vyřezání</span></li>
+                    <li class="flex items-center gap-2"><span class="text-teal-400">●</span> <span data-i18n="result4">Pochopení workflow od návrhu po přípravu pro výrobu</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Co jsem se naučil -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="learnedTitle">Co jsem se naučil</h2>
+                <ul class="space-y-2 mt-4">
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned1">Práce s CAD softwarem pro 2D návrh</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned2">Tvorba přesných vektorových návrhů pro výrobu</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned3">Příprava souborů pro laserové řezání (DXF formát)</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned4">Optimalizace návrhů pro materiálové vlastnosti</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned5">Plánování sestavení 3D objektů z 2D částí</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Galerie -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="galleryTitle">Galerie</h2>
+                <div class="relative overflow-hidden">
+                    <div id="gallery-carousel" class="flex gap-4 pb-4 select-none">
+                        <img src="images/1.jpg" alt="Obrázek 1" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/2.jpg" alt="Obrázek 2" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/3.jpg" alt="Obrázek 3" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/4.jpg" alt="Obrázek 4" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/5.jpg" alt="Obrázek 5" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <video src="images/6.mp4" alt="Video 6" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" controls muted onclick="openLightboxVideo(this.src)"></video>
+                        <img src="images/7.jpg" alt="Obrázek 7" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" style="transform: rotate(180deg);" onclick="openLightbox(this.src)">
+                        <img src="images/projekt.2.png" alt="Projekt 2" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <!-- Duplikované obrázky pro nekonečné scrollování -->
+                        <img src="images/1.jpg" alt="Obrázek 1" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/2.jpg" alt="Obrázek 2" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/3.jpg" alt="Obrázek 3" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/4.jpg" alt="Obrázek 4" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/5.jpg" alt="Obrázek 5" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <video src="images/6.mp4" alt="Video 6" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" controls muted onclick="openLightboxVideo(this.src)"></video>
+                        <img src="images/7.jpg" alt="Obrázek 7" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" style="transform: rotate(180deg);" onclick="openLightbox(this.src)">
+                        <img src="images/projekt.2.png" alt="Projekt 2" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox -->
+        <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50" onclick="closeLightbox()">
+            <span class="absolute top-4 right-8 text-white text-4xl cursor-pointer hover:text-gray-300">&times;</span>
+            <img id="lightbox-img" src="" alt="Zvětšený obrázek" class="max-w-[90%] max-h-[90%] object-contain">
+            <video id="lightbox-video" src="" controls class="max-w-[90%] max-h-[90%] object-contain hidden"></video>
         </div>
-    </footer>
 
+        <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox').style.display = 'flex';
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-img').style.display = 'block';
+            document.getElementById('lightbox-video').style.display = 'none';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openLightboxVideo(src) {
+            document.getElementById('lightbox').style.display = 'flex';
+            document.getElementById('lightbox-video').src = src;
+            document.getElementById('lightbox-img').style.display = 'none';
+            document.getElementById('lightbox-video').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.getElementById('lightbox-video').pause();
+            document.getElementById('lightbox-video').src = '';
+            document.getElementById('lightbox-img').src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Nekonečné automatické scrollování galerie s možností manuálního ovládání
+        const gallery = document.getElementById('gallery-carousel');
+        let scrollPosition = 0;
+        let isUserInteracting = false;
+        let isDragging = false;
+        let startX = 0;
+        let lastX = 0;
+
+        function infiniteScroll() {
+            if (!isUserInteracting && !isDragging) {
+                scrollPosition += 1; // Rychlost posunu (px za frame)
+                gallery.style.transform = `translateX(-${scrollPosition}px)`;
+
+                // Reset pozice pro nekonečné scrollování
+                const itemWidth = 280; // šířka obrázku + gap
+                const totalItems = 8;
+                const resetPoint = itemWidth * totalItems;
+                
+                if (scrollPosition >= resetPoint) {
+                    scrollPosition = 0;
+                }
+            }
+            requestAnimationFrame(infiniteScroll);
+        }
+
+        // Drag & scroll funkcionalita
+        gallery.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            isUserInteracting = true;
+            startX = e.clientX;
+            lastX = e.clientX;
+            gallery.style.cursor = 'grabbing';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                gallery.style.cursor = 'grab';
+                setTimeout(() => { 
+                    if (!isDragging) {
+                        isUserInteracting = false; 
+                    }
+                }, 1000); // Pokračuj v auto-scroll po 1 sekundě
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            const deltaX = e.clientX - lastX;
+            scrollPosition -= deltaX * 2; // Rychlost scrollování
+            
+            // Udržuj scrollPosition v mezích pro nekonečné scrollování
+            const itemWidth = 280;
+            const totalItems = 8;
+            const resetPoint = itemWidth * totalItems;
+            
+            if (scrollPosition < 0) {
+                scrollPosition = resetPoint + scrollPosition;
+            } else if (scrollPosition >= resetPoint) {
+                scrollPosition = scrollPosition - resetPoint;
+            }
+            
+            gallery.style.transform = `translateX(-${scrollPosition}px)`;
+            lastX = e.clientX;
+        });
+
+        // Touch support pro mobily
+        gallery.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            isUserInteracting = true;
+            startX = e.touches[0].clientX;
+            lastX = e.touches[0].clientX;
+            e.preventDefault();
+        });
+
+        gallery.addEventListener('touchend', () => {
+            isDragging = false;
+            setTimeout(() => { 
+                if (!isDragging) {
+                    isUserInteracting = false; 
+                }
+            }, 1000);
+        });
+
+        gallery.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            const deltaX = e.touches[0].clientX - lastX;
+            scrollPosition -= deltaX * 2;
+            
+            // Udržuj scrollPosition v mezích
+            const itemWidth = 280;
+            const totalItems = 8;
+            const resetPoint = itemWidth * totalItems;
+            
+            if (scrollPosition < 0) {
+                scrollPosition = resetPoint + scrollPosition;
+            } else if (scrollPosition >= resetPoint) {
+                scrollPosition = scrollPosition - resetPoint;
+            }
+            
+            gallery.style.transform = `translateX(-${scrollPosition}px)`;
+            lastX = e.touches[0].clientX;
+        });
+
+        // Pause při hover
+        gallery.addEventListener('mouseenter', () => { isUserInteracting = true; });
+        gallery.addEventListener('mouseleave', () => { 
+            if (!isDragging) {
+                isUserInteracting = false; 
+            }
+        });
+
+        // Nastavení kurzoru
+        gallery.style.cursor = 'grab';
+
+        infiniteScroll();
+        </script>
+
+        <!-- Navigation to other projects -->
+        <div class="flex justify-between items-center max-w-3xl w-full mb-4">
+            <a href="projekt1.html" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                <span>Miniprojekt 1</span>
+            </a>
+            <a href="projekt3.html" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition">
+                <span>Miniprojekt 3</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+
+        <a href="index.html" class="inline-block bg-white text-teal-600 font-bold py-2 px-4 rounded transition hover:bg-gray-100" data-i18n="backToHome">Zpět na hlavní stránku</a>
+    </main>
+    <footer class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+        <p data-i18n="copyright">&copy; 2025 Tomáš Doubrava. Všechna práva vyhrazena.</p>
+    </footer>
 </body>
 </html>

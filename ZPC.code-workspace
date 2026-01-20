@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"name": "Pls pls",
+			"path": "../../../../../../../Dokumenty/PlatformIO/Projects/Pls pls"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "ZPC"
+	}
+}

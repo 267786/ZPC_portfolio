@@ -246,7 +246,7 @@
         <section class="max-w-3xl w-full mb-8">
             <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
                 <div class="relative overflow-hidden">
-                    <div id="gallery-carousel" class="flex gap-4 pb-4">
+                    <div id="gallery-carousel" class="flex gap-4 pb-4 select-none">
                         <img src="images/stranka.png" alt="Projekt obrázek 1" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
                         <img src="images/hugo.png" alt="Projekt obrázek 2" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
                         <img src="images/miniprojekt 1a.png" alt="Projekt obrázek 3" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
@@ -279,13 +279,16 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Nekonečné automatické scrollování galerie
+        // Nekonečné automatické scrollování galerie s možností manuálního ovládání
         const gallery = document.getElementById('gallery-carousel');
         let scrollPosition = 0;
         let isUserInteracting = false;
+        let isDragging = false;
+        let startX = 0;
+        let lastX = 0;
 
         function infiniteScroll() {
-            if (!isUserInteracting) {
+            if (!isUserInteracting && !isDragging) {
                 scrollPosition += 1; // Rychlost posunu (px za frame)
                 gallery.style.transform = `translateX(-${scrollPosition}px)`;
 
@@ -301,11 +304,101 @@
             requestAnimationFrame(infiniteScroll);
         }
 
-        // Pause při interakci myší
-        gallery.addEventListener('mouseenter', () => { isUserInteracting = true; });
-        gallery.addEventListener('mouseleave', () => { isUserInteracting = false; });
+        // Drag & scroll funkcionalita
+        gallery.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            isUserInteracting = true;
+            startX = e.clientX;
+            lastX = e.clientX;
+            gallery.style.cursor = 'grabbing';
+            e.preventDefault();
+        });
 
-        infiniteScroll();
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                gallery.style.cursor = 'grab';
+                setTimeout(() => { 
+                    if (!isDragging) {
+                        isUserInteracting = false; 
+                    }
+                }, 1000); // Pokračuj v auto-scroll po 1 sekundě
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            const deltaX = e.clientX - lastX;
+            scrollPosition -= deltaX * 2; // Rychlost scrollování
+            
+            // Udržuj scrollPosition v mezích pro nekonečné scrollování
+            const itemWidth = 280;
+            const totalItems = 4;
+            const resetPoint = itemWidth * totalItems;
+            
+            if (scrollPosition < 0) {
+                scrollPosition = resetPoint + scrollPosition;
+            } else if (scrollPosition >= resetPoint) {
+                scrollPosition = scrollPosition - resetPoint;
+            }
+            
+            gallery.style.transform = `translateX(-${scrollPosition}px)`;
+            lastX = e.clientX;
+        });
+
+        // Touch support pro mobily
+        gallery.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            isUserInteracting = true;
+            startX = e.touches[0].clientX;
+            lastX = e.touches[0].clientX;
+            e.preventDefault();
+        });
+
+        gallery.addEventListener('touchend', () => {
+            isDragging = false;
+            setTimeout(() => { 
+                if (!isDragging) {
+                    isUserInteracting = false; 
+                }
+            }, 1000);
+        });
+
+        gallery.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            const deltaX = e.touches[0].clientX - lastX;
+            scrollPosition -= deltaX * 2;
+            
+            // Udržuj scrollPosition v mezích
+            const itemWidth = 280;
+            const totalItems = 4;
+            const resetPoint = itemWidth * totalItems;
+            
+            if (scrollPosition < 0) {
+                scrollPosition = resetPoint + scrollPosition;
+            } else if (scrollPosition >= resetPoint) {
+                scrollPosition = scrollPosition - resetPoint;
+            }
+            
+            gallery.style.transform = `translateX(-${scrollPosition}px)`;
+            lastX = e.touches[0].clientX;
+        });
+
+        // Pause při hover
+        gallery.addEventListener('mouseenter', () => { isUserInteracting = true; });
+        gallery.addEventListener('mouseleave', () => { 
+            if (!isDragging) {
+                isUserInteracting = false; 
+            }
+        });
+
+        // Nastavení kurzoru
+        gallery.style.cursor = 'grab';
+
         infiniteScroll();
         </script>
 

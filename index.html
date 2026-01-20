@@ -12,12 +12,32 @@
     <!-- Header -->
     <header id="main-header" class="bg-white shadow-md sticky top-0 z-50 transition duration-300">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-gray-800">Moje Portfolio</a>
+            <a href="#" class="text-2xl font-bold text-gray-800" data-i18n="portfolio">Moje Portfolio</a>
             <div class="flex items-center">
-                <a href="about.html" class="mx-2 text-teal-400 hover:text-teal-200">O mně</a>
-                <a href="#projects" class="mx-2 text-teal-400 hover:text-teal-200">Mini projekty</a>
-                <a href="semestralni-projekt.html" class="mx-2 text-teal-400 hover:text-teal-200">Semestrální projekt</a>
-                <a href="#contact" class="mx-2 text-teal-400 hover:text-teal-200">Kontakt</a>
+                <a href="about.html" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="about">O mně</a>
+                <a href="index.html#projects" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="miniProjects">Mini projekty</a>
+                <a href="semestralni-projekt.html" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="semesterProject">Semestrální projekt</a>
+                <a href="#contact" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="contact">Kontakt</a>
+                
+                <!-- Language Selector -->
+                <div class="relative ml-4" id="language-selector">
+                    <button id="language-toggle" class="px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center gap-1">
+                        <span id="current-lang">CZ</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="language-dropdown" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded shadow-lg z-50">
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="cs">
+                            <span class="inline-block w-6">🇨🇿</span> Čeština
+                        </button>
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="en">
+                            <span class="inline-block w-6">🇺🇸</span> English
+                        </button>
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="de">
+                            <span class="inline-block w-6">🇩🇪</span> Deutsch
+                        </button>
+                    </div>
+                </div>
+                
                 <button id="theme-toggle" class="ml-4 px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center justify-center" aria-label="Přepnout režim">
                     <span id="theme-icon">
                         <!-- Výchozí ikona (sluníčko) -->
@@ -29,6 +49,154 @@
         </nav>
     </header>
     <script>
+    // ===== TRANSLATIONS =====
+    const translations = {
+        cs: {
+            portfolio: "Moje Portfolio",
+            about: "O mně",
+            miniProjects: "Mini projekty",
+            semesterProject: "Semestrální projekt",
+            contact: "Kontakt",
+            aboutWebsite: "O webu",
+            aboutWebsiteText: "Tento web slouží jako portfolio projektů a ukázka práce. Najdete zde přehled mých projektů, použité technologie a další informace o tom, jak web vznikal a jaké funkce nabízí. Prohlédněte si jednotlivé projekty a inspirujte se!",
+            miniProjectsTitle: "Mini Projekty",
+            project1Title: "Vytvoření webu",
+            project1Desc: "V tomto miniprojektu bylo úkolem vytvořit plně funkční web...",
+            project2Title: "2D Grafika a Řezání",
+            project2Desc: "Stručný popis projektu. Co řeší, jaké technologie byly použity.",
+            project3Title: "3D Skenování",
+            project3Desc: "V tomto miniprojektu bylo úkolem vytvořit 3D model pomocí skenování.",
+            project4Title: "3D Tisk",
+            project4Desc: "Stručný popis projektu. Co řeší, jaké technologie byly použity.",
+            project5Title: "Mikroelektronika",
+            project5Desc: "Stručný popis projektu. Co řeší, jaké technologie byly použity.",
+            moreDetails: "Více detailů",
+            contactMe: "Kontaktujte mě",
+            contactText: "Máte dotaz, připomínku nebo vás zajímá něco víc o tomto webu? Neváhejte se mi ozvat!",
+            sendEmail: "Napsat e-mail",
+            phoneLabel: "Telefon",
+            emailLabel: "E-mail",
+            instagramLabel: "Instagram",
+            copyright: "© 2025 Tomáš Doubrava. Všechna práva vyhrazena."
+        },
+        en: {
+            portfolio: "My Portfolio",
+            about: "About Me",
+            miniProjects: "Mini Projects",
+            semesterProject: "Semester Project",
+            contact: "Contact",
+            aboutWebsite: "About the Website",
+            aboutWebsiteText: "This website serves as a portfolio of projects and a showcase of work. You will find an overview of my projects, technologies used, and more information about how the website was created and what features it offers. Browse through individual projects and get inspired!",
+            miniProjectsTitle: "Mini Projects",
+            project1Title: "Website Creation",
+            project1Desc: "Brief project description. What it solves, which technologies were used.",
+            project2Title: "2D Graphics and Cutting",
+            project2Desc: "Brief project description. What it solves, which technologies were used.",
+            project3Title: "3D Scanning",
+            project3Desc: "Brief project description. What it solves, which technologies were used.",
+            project4Title: "3D Printing",
+            project4Desc: "Brief project description. What it solves, which technologies were used.",
+            project5Title: "Microelectronics",
+            project5Desc: "Brief project description. What it solves, which technologies were used.",
+            moreDetails: "More details",
+            contactMe: "Contact Me",
+            contactText: "Do you have a question, comment, or want to know more about this website? Feel free to reach out!",
+            sendEmail: "Send Email",
+            phoneLabel: "Phone",
+            emailLabel: "Email",
+            instagramLabel: "Instagram",
+            copyright: "© 2025 Tomáš Doubrava. All rights reserved."
+        },
+        de: {
+            portfolio: "Mein Portfolio",
+            about: "Über mich",
+            miniProjects: "Mini-Projekte",
+            semesterProject: "Semesterprojekt",
+            contact: "Kontakt",
+            aboutWebsite: "Über die Website",
+            aboutWebsiteText: "Diese Website dient als Portfolio von Projekten und als Arbeitsnachweis. Hier finden Sie einen Überblick über meine Projekte, verwendete Technologien und weitere Informationen darüber, wie die Website entstanden ist und welche Funktionen sie bietet. Schauen Sie sich die einzelnen Projekte an und lassen Sie sich inspirieren!",
+            miniProjectsTitle: "Mini-Projekte",
+            project1Title: "Website-Erstellung",
+            project1Desc: "Kurze Projektbeschreibung. Was es löst, welche Technologien verwendet wurden.",
+            project2Title: "2D-Grafik und Schneiden",
+            project2Desc: "Kurze Projektbeschreibung. Was es löst, welche Technologien verwendet wurden.",
+            project3Title: "3D-Scannen",
+            project3Desc: "Kurze Projektbeschreibung. Was es löst, welche Technologien verwendet wurden.",
+            project4Title: "3D-Druck",
+            project4Desc: "Kurze Projektbeschreibung. Was es löst, welche Technologien verwendet wurden.",
+            project5Title: "Mikroelektronik",
+            project5Desc: "Kurze Projektbeschreibung. Was es löst, welche Technologien verwendet wurden.",
+            moreDetails: "Mehr Details",
+            contactMe: "Kontaktieren Sie mich",
+            contactText: "Haben Sie eine Frage, einen Kommentar oder möchten Sie mehr über diese Website erfahren? Zögern Sie nicht, mich zu kontaktieren!",
+            sendEmail: "E-Mail senden",
+            phoneLabel: "Telefon",
+            emailLabel: "E-Mail",
+            instagramLabel: "Instagram",
+            copyright: "© 2025 Tomáš Doubrava. Alle Rechte vorbehalten."
+        }
+    };
+
+    // Language switching
+    let currentLang = localStorage.getItem('language') || 'cs';
+    
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('language', lang);
+        document.documentElement.lang = lang;
+        
+        // Update current language display
+        const langLabels = { cs: 'CZ', en: 'EN', de: 'DE' };
+        document.getElementById('current-lang').textContent = langLabels[lang];
+        
+        // Update all translated elements
+        document.querySelectorAll('[data-i18n]').forEach(elem => {
+            const key = elem.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                elem.textContent = translations[lang][key];
+            }
+        });
+        
+        // Update elements with specific attributes
+        document.querySelectorAll('[data-i18n-html]').forEach(elem => {
+            const key = elem.getAttribute('data-i18n-html');
+            if (translations[lang] && translations[lang][key]) {
+                elem.innerHTML = translations[lang][key];
+            }
+        });
+    }
+    
+    // Language dropdown toggle
+    document.getElementById('language-toggle').onclick = function(e) {
+        e.stopPropagation();
+        document.getElementById('language-dropdown').classList.toggle('hidden');
+    };
+    
+    // Language selection
+    document.querySelectorAll('.lang-option').forEach(btn => {
+        btn.onclick = function() {
+            const selectedLang = this.getAttribute('data-lang');
+            setLanguage(selectedLang);
+            document.getElementById('language-dropdown').classList.add('hidden');
+        };
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        const dropdown = document.getElementById('language-dropdown');
+        const toggle = document.getElementById('language-toggle');
+        if (!dropdown.contains(e.target) && !toggle.contains(e.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
+    
+    // Initialize language on page load - must run after DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedLang = localStorage.getItem('language') || 'cs';
+        setLanguage(savedLang);
+    });
+
+    // ===== THEME TOGGLE =====
     // Přepínání světlého/tmavého režimu + ikona slunce/měsíc
     function updateThemeIcon() {
         const html = document.documentElement;
@@ -53,9 +221,12 @@
         }
         updateThemeIcon();
     };
-    // Načtení preferovaného režimu při načtení stránky
-    if (localStorage.getItem('theme') === 'dark') {
+    // Načtení preferovaného režimu při načtení stránky - výchozí je dark
+    if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.remove('dark');
+    } else {
         document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
     }
     updateThemeIcon();
 
@@ -77,18 +248,22 @@
 
         <!-- About Me Section -->
         <section id="about" class="mb-12">
-            <h2 class="text-3xl font-bold mb-4 text-center">O webu</h2>
-            <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
-                <img src="https://via.placeholder.com/150" alt="Logo webu" class="rounded-full w-32 h-32 mr-8"> 
-                <p class="text-lg">
-                    Tento web slouží jako portfolio projektů a ukázka práce. Najdete zde přehled mých projektů, použité technologie a další informace o tom, jak web vznikal a jaké funkce nabízí. Prohlédněte si jednotlivé projekty a klidně se inspirujte!
+            <h2 class="text-3xl font-bold mb-4 text-center" data-i18n="aboutWebsite">O webu</h2>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md flex items-center">
+                <div class="rounded-full w-32 h-32 mr-8 bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                </div>
+                <p class="text-lg dark:text-gray-200" data-i18n="aboutWebsiteText">
+                    Tento web slouží jako portfolio projektů a ukázka práce. Najdete zde přehled mých projektů, použité technologie a další informace o tom, jak web vznikal a jaké funkce nabízí. Prohlédněte si jednotlivé projekty a inspirujte se!
                 </p>
             </div>
         </section>
 
         <!-- Projects Section -->
         <section id="projects">
-            <h2 class="text-3xl font-bold mb-8 text-center">Mini Projekty</h2>
+            <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="miniProjectsTitle">Mini Projekty</h2>
             <div class="relative">
                 <button id="prevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-teal-500 text-white px-3 py-2 rounded-l hover:bg-teal-700 transition">&#8592;</button>
                 <button id="nextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-teal-500 text-white px-3 py-2 rounded-r hover:bg-teal-700 transition">&#8594;</button>
@@ -98,11 +273,11 @@
                     <div class="min-w-[350px] max-w-[400px] flex-1 bg-white rounded-lg shadow-md overflow-hidden">
                         <img src="images/hugo.png" alt="Náhled projektu 1" style="width:100%;height:220px;background:#fff;border-radius:12px 12px 0 0;object-fit:cover;display:block;">
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Vytvoření webu</h3>
-                            <p class="text-gray-600 mb-4">
-                                Stručný popis projektu. Co řeší, jaké technologie byly použity.
+                            <h3 class="text-xl font-bold mb-2" data-i18n="project1Title">Vytvoření webu</h3>
+                            <p class="text-gray-600 mb-4" data-i18n="project1Desc">
+                                V tomto miniprojektu bylo úkolem vytvořit plně funkční web.
                             </p>
-                            <a href="projekt1.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                            <a href="projekt1.html" class="text-blue-500 hover:underline"><span data-i18n="moreDetails">Více detailů</span> &rarr;</a>
                         </div>
                     </div>
 
@@ -110,47 +285,47 @@
                     <div class="min-w-[350px] max-w-[400px] flex-1 bg-white rounded-lg shadow-md overflow-hidden">
                         <img src="images/projekt.2.png" alt="Náhled projektu 2" style="width:100%;height:220px;background:#fff;border-radius:12px 12px 0 0;object-fit:cover;display:block;">
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">2D Grafika</h3>
-                            <p class="text-gray-600 mb-4">
+                            <h3 class="text-xl font-bold mb-2" data-i18n="project2Title">2D Grafika</h3>
+                            <p class="text-gray-600 mb-4" data-i18n="project2Desc">
                                 Stručný popis projektu. Co řeší, jaké technologie byly použity.
                             </p>
-                            <a href="projekt2.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                            <a href="projekt2.html" class="text-blue-500 hover:underline"><span data-i18n="moreDetails">Více detailů</span> &rarr;</a>
                         </div>
                     </div>
 
                     <!-- Project Card 3 -->
                     <div class="min-w-[350px] max-w-[400px] flex-1 bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80" alt="Náhled projektu 3 - 3D scan" class="w-full h-48 object-cover">
+                        <img src="images/8.png" alt="Náhled projektu 3 - 3D scan" class="w-full h-48 object-cover">
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">3D Skenování</h3>
-                            <p class="text-gray-600 mb-4">
+                            <h3 class="text-xl font-bold mb-2" data-i18n="project3Title">3D Skenování</h3>
+                            <p class="text-gray-600 mb-4" data-i18n="project3Desc">
                                 Stručný popis projektu. Co řeší, jaké technologie byly použity.
                             </p>
-                            <a href="projekt3.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                            <a href="projekt3.html" class="text-blue-500 hover:underline"><span data-i18n="moreDetails">Více detailů</span> &rarr;</a>
                         </div>
                     </div>
 
                     <!-- Project Card 4 -->
                     <div class="min-w-[350px] max-w-[400px] flex-1 bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="https://via.placeholder.com/400x250" alt="Náhled projektu 4" class="w-full h-48 object-cover">
+                        <img src="images/14.jpg" alt="Náhled projektu 4" class="w-full h-48 object-cover">
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">3D Tisk</h3>
-                            <p class="text-gray-600 mb-4">
+                            <h3 class="text-xl font-bold mb-2" data-i18n="project4Title">3D Tisk</h3>
+                            <p class="text-gray-600 mb-4" data-i18n="project4Desc">
                                 Stručný popis projektu. Co řeší, jaké technologie byly použity.
                             </p>
-                            <a href="projekt4.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                            <a href="projekt4.html" class="text-blue-500 hover:underline"><span data-i18n="moreDetails">Více detailů</span> &rarr;</a>
                         </div>
                     </div>
 
                     <!-- Project Card 5 -->
                     <div class="min-w-[350px] max-w-[400px] flex-1 bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="https://via.placeholder.com/400x250" alt="Náhled projektu 5" class="w-full h-48 object-cover">
+                        <img src="images/13.png" alt="Náhled projektu 5" class="w-full h-48 object-cover">
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Mikroelektronika</h3>
-                            <p class="text-gray-600 mb-4">
+                            <h3 class="text-xl font-bold mb-2" data-i18n="project5Title">Mikroelektronika</h3>
+                            <p class="text-gray-600 mb-4" data-i18n="project5Desc">
                                 Stručný popis projektu. Co řeší, jaké technologie byly použity.
                             </p>
-                            <a href="projekt5.html" class="text-blue-500 hover:underline">Více detailů &rarr;</a>
+                            <a href="projekt4.html" class="text-blue-500 hover:underline"><span data-i18n="moreDetails">Více detailů</span> &rarr;</a>
                         </div>
                     </div>
 
@@ -250,13 +425,51 @@
     <!-- Footer -->
     <footer id="contact" class="bg-gray-800 text-white mt-12">
         <div class="container mx-auto px-6 py-8 text-center">
-            <h3 class="text-2xl font-bold mb-4">Kontaktujte mě</h3>
-            <p class="mb-4">Máte dotaz, připomínku nebo vás zajímá něco víc o tomto webu? Neváhejte se mi ozvat!</p>
-            <a href="mailto:vas.email@example.com" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+            <h3 class="text-2xl font-bold mb-4" data-i18n="contactMe">Kontaktujte mě</h3>
+            <p class="mb-4" data-i18n="contactText">Máte dotaz, připomínku nebo vás zajímá něco víc o tomto webu? Neváhejte se mi ozvat!</p>
+            <a href="mailto:267786@vutbr.cz" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-i18n="sendEmail">
                 Napsat e-mail
             </a>
+            <!-- Contact methods -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 text-left">
+                <!-- Phone -->
+                <div class="bg-white dark:bg-gray-700 rounded-lg p-6 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-teal-500 text-white flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884c.06-1.047.27-1.74.56-2.228a3 3 0 011.09-1.09C4.14 2.276 4.833 2.066 5.88 2.006 6.38 1.977 6.7 2.45 6.83 2.94l.52 1.978c.11.42-.02.87-.34 1.17l-.81.76a1 1 0 00-.23 1.21 11.04 11.04 0 004.39 4.39 1 1 0 001.21-.23l.76-.81c.3-.32.75-.45 1.17-.34l1.98.52c.49.13.96.45.93.95-.06 1.05-.27 1.74-.56 2.23a3 3 0 01-1.09 1.09c-.49.29-1.18.5-2.23.56-1.11.06-2.02-.08-2.81-.38a15.06 15.06 0 01-6.72-6.72c-.3-.79-.44-1.7-.38-2.81z"/></svg>
+                    </div>
+                    <div>
+                        <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="phoneLabel">Telefon</div>
+                        <span class="text-lg font-semibold text-gray-900 dark:text-white">+420 733 244 744</span>
+                    </div>
+                </div>
+                <!-- Email -->
+                <div class="bg-white dark:bg-gray-700 rounded-lg p-6 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2.94 6.34A2 2 0 014.4 5h11.2a2 2 0 011.46.34L10 10.5 2.94 6.34z"/><path d="M18 8.12V14a2 2 0 01-2 2H4a2 2 0 01-2-2V8.12l7.55 4.53a1 1 0 001.1 0L18 8.12z"/></svg>
+                    </div>
+                    <div>
+                        <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="emailLabel">E-mail</div>
+                        <a href="mailto:267786@vutbr.cz" class="text-lg font-semibold text-gray-900 dark:text-white hover:text-teal-600">267786@vutbr.cz</a>
+                    </div>
+                </div>
+                <!-- Instagram -->
+                <div class="bg-white dark:bg-gray-700 rounded-lg p-6 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-fuchsia-500 via-rose-500 to-amber-400 text-white flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <circle cx="17.5" cy="6.5" r="1.5"></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-sm text-gray-500 dark:text-gray-300" data-i18n="instagramLabel">Instagram</div>
+                        <a href="https://instagram.com/douboslav" target="_blank" rel="noopener noreferrer" class="text-lg font-semibold text-gray-900 dark:text-white hover:text-teal-600" aria-label="Instagram profil">@douboslav</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="mt-8 text-right">
-                <p>&copy; 2025 Tomáš Doubrava. Všechna práva vyhrazeny.</p>
+                <p data-i18n="copyright">&copy; 2025 Tomáš Doubrava. Všechna práva vyhrazena.</p>
             </div>
         </div>
     </footer>

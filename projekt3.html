@@ -3,37 +3,423 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt 3</title>
+    <title>3D Skenování</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
-
-    <!-- Header -->
-    <header class="bg-white shadow-md">
-        <nav class="container mx-auto px-6 py-4">
-            <a href="index.html" class="text-2xl font-bold text-gray-800">Zpět na Portfolio</a>
+<body class="bg-gray-100 dark:bg-[#0f172a] text-gray-800 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+    <header id="main-header" class="bg-white shadow-md sticky top-0 z-50 transition duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-gray-800" data-i18n="portfolio">Moje Portfolio</a>
+            <div class="flex items-center">
+                <a href="about.html" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="about">O mně</a>
+                <a href="index.html#projects" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="miniProjects">Mini projekty</a>
+                <a href="semestralni-projekt.html" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="semesterProject">Semestrální projekt</a>
+                <a href="index.html#contact" class="mx-2 text-teal-400 hover:text-teal-200" data-i18n="contact">Kontakt</a>
+                <div class="relative ml-4" id="language-selector">
+                    <button id="language-toggle" class="px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center gap-1">
+                        <span id="current-lang">CZ</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="language-dropdown" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded shadow-lg z-50">
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="cs"><span class="inline-block w-6">🇨🇿</span> Čeština</button>
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="en"><span class="inline-block w-6">🇺🇸</span> English</button>
+                        <button class="lang-option block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200" data-lang="de"><span class="inline-block w-6">🇩🇪</span> Deutsch</button>
+                    </div>
+                </div>
+                <button id="theme-toggle" class="ml-4 px-3 py-1 rounded bg-teal-500 text-white hover:bg-teal-700 transition flex items-center justify-center" aria-label="Přepnout režim">
+                    <span id="theme-icon">
+                        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="currentColor"/><path stroke="currentColor" stroke-width="2" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke="currentColor" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
+                    </span>
+                </button>
+            </div>
         </nav>
     </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 py-8">
-        <section>
-            <h2 class="text-3xl font-bold mb-4">Název Projektu 3</h2>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <img src="https://via.placeholder.com/800x400" alt="Detail projektu 3" class="w-full h-auto object-cover mb-6 rounded-lg">
-                <p class="text-lg">
-                    Zde je podrobný popis projektu 3. Můžete zde rozvést, jaké byly cíle projektu, jaké technologie jste použili, jaký byl váš přínos a jaké byly výsledky.
-                </p>
+    <script>
+    const translations = {
+        cs: {
+            portfolio: "Moje Portfolio",
+            about: "O mně",
+            miniProjects: "Mini projekty",
+            semesterProject: "Semestrální projekt",
+            contact: "Kontakt",
+            projectTitle: "3D Skenování",
+            projectDescTitle: "Popis projektu",
+            projectDesc: "V tomto projektu jsem se seznámil s technologií 3D skenování. Naučil jsem se zachytávat geometrii reálných objektů a převádět je do digitální podoby pro další zpracování. 3D skenování umožňuje rychlou digitalizaci existujících objektů.",
+            projectDesc2: "Projekt zahrnoval práci s laserovým skenováním. Výsledné modely lze upravovat, analyzovat nebo reprodukovat pomocí 3D tisku.",
+            projectImageCaption: "3D skenování",
+            processTitle: "Průběh práce",
+            step1Title: "Příprava objektu",
+            step1Desc: "Příprava - čištění, matování lesklých povrchů atd.",
+            step2Title: "Nastavení skeneru",
+            step2Desc: "Kalibrace 3D skeneru, nastavení rozlišení a kvality skenování.",
+            step3Title: "Skenování",
+            step3Desc: "Postupné snímání objektu ze všech úhlů pro kompletní zachycení geometrie.",
+            step4Title: "Zpracování dat",
+            step4Desc: "Spojení skenů, čištění dat, vyplňování děr a optimalizace 3D modelu.",
+            resultsTitle: "Výsledky",
+            resultsDesc: "Projekt 3D skenování přinesl kvalitní digitální kopie reálných objektů:",
+            result1: "Přesné 3D modely zachycující geometrii a texturu objektů",
+            result2: "Optimalizované mesh připravené pro 3D tisk nebo další úpravy",
+            result3: "Zkušenosti s reálnými omezeními technologie (lesklé povrchy, detaily)",
+            result4: "Workflow od fyzického objektu k editovatelnému 3D modelu",
+            learnedTitle: "Co jsem se naučil",
+            learned1: "Typy skenování - fotogrammetrie, laserové skenování",
+            learned2: "Příprava objektu a správné nastavení skenu",
+            learned3: "Skenování - technika postupného snímání ze všech úhlů",
+            learned4: "Post-processing - čištění dat, vyplňování děr a optimalizace mesh",
+            learned5: "Export formátů - STL, OBJ, PLY a další formáty 3D dat",
+            galleryTitle: "Galerie",
+            backToHome: "Zpět na hlavní stránku",
+            copyright: "© 2025 Tomáš Doubrava. Všechna práva vyhrazena."
+        },
+        en: {
+            portfolio: "My Portfolio",
+            about: "About Me",
+            miniProjects: "Mini Projects",
+            semesterProject: "Semester Project",
+            contact: "Contact",
+            projectTitle: "3D Scanning",
+            projectDescTitle: "Project Description",
+            projectDesc: "In this project, I got acquainted with 3D scanning technology. I learned to capture the geometry of real objects and convert them to digital form for further processing. 3D scanning allows rapid digitization of existing objects.",
+            projectDesc2: "The project involved working with photogrammetry and laser scanning. The resulting models can be edited, analyzed or reproduced using 3D printing.",
+            projectImageCaption: "3D scanning",
+            processTitle: "Workflow",
+            step1Title: "Object preparation",
+            step1Desc: "Selection of a suitable object and its preparation - cleaning, matting shiny surfaces.",
+            step2Title: "Scanner setup",
+            step2Desc: "Calibration of 3D scanner, setting resolution and scanning quality.",
+            step3Title: "Scanning",
+            step3Desc: "Progressive scanning of the object from all angles for complete geometry capture.",
+            step4Title: "Data processing",
+            step4Desc: "Merging scans, data cleaning, hole filling and 3D model optimization.",
+            resultsTitle: "Results",
+            resultsDesc: "The 3D scanning project resulted in high-quality digital copies of real objects:",
+            result1: "Accurate 3D models capturing object geometry and texture",
+            result2: "Optimized mesh ready for 3D printing or further editing",
+            result3: "Experience with real technology limitations (shiny surfaces, details)",
+            result4: "Workflow from physical object to editable 3D model",
+            learnedTitle: "What I learned",
+            learned1: "Types of scanning - photogrammetry, laser scanning",
+            learned2: "Object preparation and correct lighting setup",
+            learned3: "Scanning - technique of progressive scanning from all angles",
+            learned4: "Post-processing - data cleaning, hole filling and mesh optimization",
+            learned5: "Export formats - STL, OBJ, PLY and other 3D data formats",
+            galleryTitle: "Gallery",
+            backToHome: "Back to Home",
+            copyright: "© 2025 Tomáš Doubrava. All rights reserved."
+        },
+        de: {
+            portfolio: "Mein Portfolio",
+            about: "Über mich",
+            miniProjects: "Mini-Projekte",
+            semesterProject: "Semesterprojekt",
+            contact: "Kontakt",
+            projectTitle: "3D-Scannen",
+            projectDescTitle: "Projektbeschreibung",
+            projectDesc: "In diesem Projekt habe ich mich mit der 3D-Scantechnologie vertraut gemacht. Ich habe gelernt, die Geometrie realer Objekte zu erfassen und sie zur weiteren Verarbeitung in digitale Form umzuwandeln. Das 3D-Scannen ermöglicht eine schnelle Digitalisierung vorhandener Objekte.",
+            projectDesc2: "Das Projekt umfasste die Arbeit mit Photogrammetrie und Laserscanning. Die resultierenden Modelle können bearbeitet, analysiert oder mittels 3D-Druck reproduziert werden.",
+            projectImageCaption: "3D-Scannen",
+            processTitle: "Arbeitsablauf",
+            step1Title: "Objektvorbereitung",
+            step1Desc: "Auswahl eines geeigneten Objekts und dessen Vorbereitung - Reinigung, Mattierung glänzender Oberflächen.",
+            step2Title: "Scanner-Einrichtung",
+            step2Desc: "Kalibrierung des 3D-Scanners, Einstellung von Auflösung und Scanqualität.",
+            step3Title: "Scannen",
+            step3Desc: "Progressives Scannen des Objekts aus allen Winkeln für vollständige Geometrieerfassung.",
+            step4Title: "Datenverarbeitung",
+            step4Desc: "Zusammenführen von Scans, Datenbereinigung, Lochfüllung und 3D-Modelloptimierung.",
+            resultsTitle: "Ergebnisse",
+            resultsDesc: "Das 3D-Scan-Projekt führte zu hochwertigen digitalen Kopien realer Objekte:",
+            result1: "Präzise 3D-Modelle, die Objektgeometrie und -textur erfassen",
+            result2: "Optimiertes Mesh bereit für 3D-Druck oder weitere Bearbeitung",
+            result3: "Erfahrung mit realen Technologiebeschränkungen (glänzende Oberflächen, Details)",
+            result4: "Workflow vom physischen Objekt zum bearbeitbaren 3D-Modell",
+            learnedTitle: "Was ich gelernt habe",
+            learned1: "Arten des Scannens - Photogrammetrie, Laserscanning",
+            learned2: "Objektvorbereitung und korrekte Beleuchtungseinrichtung",
+            learned3: "Scannen - Technik des progressiven Scannens aus allen Winkeln",
+            learned4: "Nachbearbeitung - Datenbereinigung, Lochfüllung und Mesh-Optimierung",
+            learned5: "Exportformate - STL, OBJ, PLY und andere 3D-Datenformate",
+            galleryTitle: "Galerie",
+            backToHome: "Zurück zur Startseite",
+            copyright: "© 2025 Tomáš Doubrava. Alle Rechte vorbehalten."
+        }
+    };
+    let currentLang=localStorage.getItem('language')||'cs';function setLanguage(lang){currentLang=lang;localStorage.setItem('language',lang);document.documentElement.lang=lang;const langLabels={cs:'CZ',en:'EN',de:'DE'};document.getElementById('current-lang').textContent=langLabels[lang];document.querySelectorAll('[data-i18n]').forEach(elem=>{const key=elem.getAttribute('data-i18n');if(translations[lang]&&translations[lang][key]){elem.textContent=translations[lang][key];}});}
+    document.getElementById('language-toggle').onclick=function(e){e.stopPropagation();document.getElementById('language-dropdown').classList.toggle('hidden');};document.querySelectorAll('.lang-option').forEach(btn=>{btn.onclick=function(){const selectedLang=this.getAttribute('data-lang');setLanguage(selectedLang);document.getElementById('language-dropdown').classList.add('hidden');};});document.addEventListener('click',function(e){const dropdown=document.getElementById('language-dropdown');const toggle=document.getElementById('language-toggle');if(!dropdown.contains(e.target)&&!toggle.contains(e.target)){dropdown.classList.add('hidden');}});document.addEventListener('DOMContentLoaded',function(){const savedLang=localStorage.getItem('language')||'cs';setLanguage(savedLang);});
+    function updateThemeIcon(){const html=document.documentElement;const sunIcon=document.getElementById('sun-icon');const moonIcon=document.getElementById('moon-icon');if(html.classList.contains('dark')){sunIcon.classList.add('hidden');moonIcon.classList.remove('hidden');}else{sunIcon.classList.remove('hidden');moonIcon.classList.add('hidden');}}
+    document.getElementById('theme-toggle').onclick=function(){const html=document.documentElement;if(html.classList.contains('dark')){html.classList.remove('dark');localStorage.setItem('theme','light');}else{html.classList.add('dark');localStorage.setItem('theme','dark');}updateThemeIcon();};if(localStorage.getItem('theme')==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');localStorage.setItem('theme','dark');}updateThemeIcon();window.addEventListener('scroll',function(){const header=document.getElementById('main-header');if(window.scrollY>30){header.style.background='rgba(255,255,255,0.65)';header.style.backdropFilter='blur(8px)';}else{header.style.background='';header.style.backdropFilter='';}});
+    </script>
+    <main class="flex-1 flex flex-col items-center justify-center px-4 py-8">
+        <!-- Popis projektu -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="projectDescTitle">Popis projektu</h2>
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                    <div class="flex-1">
+                        <p class="mb-4" data-i18n="projectDesc">
+                            V tomto projektu jsem se seznámil s technologií 3D skenování. Naučil jsem se zachytávat geometrii reálných objektů a převádět je do digitální podoby pro další zpracování. 3D skenování umožňuje rychlou digitalizaci existujících objektů.
+                        </p>
+                        <p class="mb-2 text-sm text-gray-300" data-i18n="projectDesc2">
+                            Projekt zahrnoval práci s fotogrammetrií a laserovým skenováním. Výsledné modely lze upravovat, analyzovat nebo reprodukovat pomocí 3D tisku.
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0 flex flex-col items-center">
+                        <img src="images/8.png" alt="3D Skenování" class="rounded-xl shadow-lg border-4 border-white w-48 h-32 object-cover mb-2 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <span class="text-xs text-gray-400" data-i18n="projectImageCaption">3D skenování</span>
+                    </div>
+                </div>
             </div>
         </section>
-    </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white mt-12">
-        <div class="container mx-auto px-6 py-8 text-center">
-            <p>&copy; 2025 [Vaše Jméno]. Všechna práva vyhrazena.</p>
+        <!-- Průběh práce -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="processTitle">Průběh práce</h2>
+                <ol class="space-y-4 mt-4">
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold">I</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step1Title">Příprava objektu</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step1Desc">Výběr vhodného objektu a jeho příprava - čištění, matování lesklých povrchů.</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold">II</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step2Title">Nastavení skeneru</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step2Desc">Kalibrace 3D skeneru, nastavení rozlišení a kvality skenování.</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold">III</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step3Title">Skenování</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step3Desc">Postupné snímání objektu ze všech úhlů pro kompletní zachycení geometrie.</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white font-bold">IV</span>
+                        <div>
+                            <span class="font-semibold" data-i18n="step4Title">Zpracování dat</span>
+                            <div class="text-gray-300 text-sm" data-i18n="step4Desc">Spojení skenů, čištění dat, vyplňování děr a optimalizace 3D modelu.</div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Výsledky -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="resultsTitle">Výsledky</h2>
+                <p class="mb-4 text-gray-300" data-i18n="resultsDesc">
+                    Projekt 3D skenování přinesl kvalitní digitální kopie reálných objektů:
+                </p>
+                <ul class="space-y-2 mt-4 text-gray-200">
+                    <li class="flex items-start gap-2"><span class="text-teal-500">●</span> <span data-i18n="result1">Přesné 3D modely zachycující geometrii a texturu objektů</span></li>
+                    <li class="flex items-start gap-2"><span class="text-teal-500">●</span> <span data-i18n="result2">Optimalizované mesh připravené pro 3D tisk nebo další úpravy</span></li>
+                    <li class="flex items-start gap-2"><span class="text-teal-500">●</span> <span data-i18n="result3">Zkušenosti s reálnými omezeními technologie (lesklé povrchy, detaily)</span></li>
+                    <li class="flex items-start gap-2"><span class="text-teal-500">●</span> <span data-i18n="result4">Workflow od fyzického objektu k editovatelnému 3D modelu</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Co jsem se naučil -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="learnedTitle">Co jsem se naučil</h2>
+                <ul class="space-y-2 mt-4">
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned1">Typy skenování - fotogrammetrie, laserové skenování</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned2">Příprava objektu a správné nastavení osvětlení</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned3">Skenování - technika postupného snímání ze všech úhlů</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned4">Post-processing - čištění dat, vyplňování děr a optimalizace mesh</span></li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✔</span> <span data-i18n="learned5">Export formátů - STL, OBJ, PLY a další formáty 3D dat</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Galerie -->
+        <section class="max-w-3xl w-full mb-8">
+            <div class="bg-gray-900/80 dark:bg-gray-900 rounded-xl shadow-lg p-8 text-white">
+                <h2 class="text-2xl font-bold mb-4 border-b border-gray-700 pb-2" data-i18n="galleryTitle">Galerie</h2>
+                <div class="relative overflow-hidden">
+                    <div id="gallery-carousel" class="flex gap-4 pb-4 select-none">
+                        <img src="images/8.png" alt="Obrázek 8" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/9.jpg" alt="Obrázek 9" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/10.jpg" alt="Obrázek 10" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/11.jpg" alt="Obrázek 11" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/12.png" alt="Obrázek 12" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <!-- Duplikované obrázky pro nekonečné scrollování -->
+                        <img src="images/8.png" alt="Obrázek 8" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/9.jpg" alt="Obrázek 9" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/10.jpg" alt="Obrázek 10" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/11.jpg" alt="Obrázek 11" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                        <img src="images/12.png" alt="Obrázek 12" class="rounded-lg shadow-lg w-64 h-48 object-cover flex-shrink-0 cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox -->
+        <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50" onclick="closeLightbox()">
+            <span class="absolute top-4 right-8 text-white text-4xl cursor-pointer hover:text-gray-300">&times;</span>
+            <img id="lightbox-img" src="" alt="Zvětšený obrázek" class="max-w-[90%] max-h-[90%] object-contain">
         </div>
-    </footer>
 
+        <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox').style.display = 'flex';
+            document.getElementById('lightbox-img').src = src;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Nekonečné automatické scrollování galerie s možností manuálního ovládání
+        const gallery = document.getElementById('gallery-carousel');
+        let scrollPosition = 0;
+        let isUserInteracting = false;
+        let isDragging = false;
+        let startX = 0;
+        let lastX = 0;
+
+        function infiniteScroll() {
+            if (!isUserInteracting && !isDragging) {
+                scrollPosition += 1;
+                gallery.style.transform = `translateX(-${scrollPosition}px)`;
+
+                const itemWidth = 280;
+                const totalItems = 5;
+                const resetPoint = itemWidth * totalItems;
+                
+                if (scrollPosition >= resetPoint) {
+                    scrollPosition = 0;
+                }
+            }
+            requestAnimationFrame(infiniteScroll);
+        }
+
+        // Drag & scroll funkcionalita
+        gallery.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            isUserInteracting = true;
+            startX = e.clientX;
+            lastX = e.clientX;
+            gallery.style.cursor = 'grabbing';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                gallery.style.cursor = 'grab';
+                setTimeout(() => { 
+                    if (!isDragging) {
+                        isUserInteracting = false; 
+                    }
+                }, 1000);
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            const deltaX = e.clientX - lastX;
+            scrollPosition -= deltaX * 2;
+            
+            const itemWidth = 280;
+            const totalItems = 5;
+            const resetPoint = itemWidth * totalItems;
+            
+            if (scrollPosition < 0) {
+                scrollPosition = resetPoint + scrollPosition;
+            } else if (scrollPosition >= resetPoint) {
+                scrollPosition = scrollPosition - resetPoint;
+            }
+            
+            gallery.style.transform = `translateX(-${scrollPosition}px)`;
+            lastX = e.clientX;
+        });
+
+        // Touch support pro mobily
+        gallery.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            isUserInteracting = true;
+            startX = e.touches[0].clientX;
+            lastX = e.touches[0].clientX;
+            e.preventDefault();
+        });
+
+        gallery.addEventListener('touchend', () => {
+            isDragging = false;
+            setTimeout(() => { 
+                if (!isDragging) {
+                    isUserInteracting = false; 
+                }
+            }, 1000);
+        });
+
+        gallery.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            const deltaX = e.touches[0].clientX - lastX;
+            scrollPosition -= deltaX * 2;
+            
+            const itemWidth = 280;
+            const totalItems = 5;
+            const resetPoint = itemWidth * totalItems;
+            
+            if (scrollPosition < 0) {
+                scrollPosition = resetPoint + scrollPosition;
+            } else if (scrollPosition >= resetPoint) {
+                scrollPosition = scrollPosition - resetPoint;
+            }
+            
+            gallery.style.transform = `translateX(-${scrollPosition}px)`;
+            lastX = e.touches[0].clientX;
+        });
+
+        gallery.addEventListener('mouseenter', () => { isUserInteracting = true; });
+        gallery.addEventListener('mouseleave', () => { 
+            if (!isDragging) {
+                isUserInteracting = false; 
+            }
+        });
+
+        // Nastavení kurzoru
+        gallery.style.cursor = 'grab';
+
+        infiniteScroll();
+        </script>
+
+        <!-- Navigation to other projects -->
+        <div class="flex justify-between items-center max-w-3xl w-full mb-4">
+            <a href="projekt2.html" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                <span>Miniprojekt 2</span>
+            </a>
+            <a href="projekt4.html" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition">
+                <span>Miniprojekt 4</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+
+        <a href="index.html" class="inline-block bg-white text-teal-600 font-bold py-2 px-4 rounded transition hover:bg-gray-100" data-i18n="backToHome">Zpět na hlavní stránku</a>
+    </main>
+    <footer class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+        <p data-i18n="copyright">&copy; 2025 Tomáš Doubrava. Všechna práva vyhrazena.</p>
+    </footer>
 </body>
 </html>
