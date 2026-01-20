@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semestrální projekt</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import Model Viewer -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-gray-100 dark:bg-[#0f172a] text-gray-800 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -54,10 +56,40 @@
             miniProjects: "Mini projekty",
             semesterProject: "Semestrální projekt",
             contact: "Kontakt",
-            semesterProjectTitle: "Semestrální projekt",
-            projectDescription: "DOPLNIT",
+            semesterProjectTitle: "CARD DEALER",
+            projectSubtitle: "AUTOMATICKÁ MÍCHAČKA A ROZDÁVAČKA KARET",
+            projectDescription: "Tento projekt vznikl, protože si s klukama chodíme občas zahrát a není nic co ti zhorší večer víc než když je řada na tobě být \"DEALER\". Tak se zrodil nápad na tento projekt, od začátku jsem věděl, že jsem si vybral dobré téma, protože jednou z nejdůležitějších věcí při takovém projektu je mít motivaci a ta zde byla velká. Celá konstrukce je navržena pro 3D tisk a snadnou sestavitelnost v domácích podmínkách, ale to budu rozebírat později.",
             backToHome: "Zpět na hlavní stránku",
-            copyright: "© 2025 Tomáš Doubrava. Všechna práva vyhrazena."
+            copyright: "© 2025 Tomáš Doubrava. Všechna práva vyhrazena.",
+            specsTitle: "Technické specifikace",
+            spec1: "Kapacita: 2 balíčky karet",
+            spec2: "Rychlost: 20-52 karet / minuta",
+            spec3: "Počet hráčů: až 8",
+            spec4: "Hmotnost: 2.56kg",
+            spec5: "Materiál: PLA + PETG + VTEŘINOVÉ LEPIDLO",
+            spec6: "Řízení: Arduino / HC-05",
+            componentsTitle: "Základní komponenty",
+            comp1Title: "Hlavní tělo",
+            comp1Desc: "Centrální část zařízení, která drží motory a jiné komponenty.",
+            comp2Title: "Víko",
+            comp2Desc: "Kritická součástka s nejvíce iteracemi.",
+            comp3Title: "Podávací válce",
+            comp3Desc: "Podávací válce pro míchaní a vyhazování karet.",
+            comp4Title: "Vyhazovací část",
+            comp4Desc: "Mechanismus pro vyhazování karet hráčům.",
+            journalTitle: "Vývoj",
+            chapter1: "Kapitola 1: Nápad",
+            chapter1Text: "Každý hráč pokeru nebo prší to zná – míchání zdržuje. Chtěl jsem vytvořit stroj, který to udělá za nás.<br><br><strong>Cíl:</strong> Vytvořit kompaktní zařízení, které spolehlivě zamíchá a rozdá karty bez zasekávání.",
+            chapter2: "Kapitola 2: První pokusy",
+            chapter2Text: "Největší výzvou bylo oddělit z balíčku vždy právě jednu kartu.Toto bylo důležité, protože se tato mechanika uplatňuje jak v míchání tak v rozdávání karet. První prototypy braly dvě nebo více karet a zasekávaly se.<br><br><strong>Řešení:</strong> Použití O-Kroužku jako adhezivní těleso místo válečku z TPU.",
+            chapter3: "Kapitola 3: Elektronika",
+            chapter3Text: "Zde byl asi největší boj. Jaké motory použít? Jsou potřeba nějaké senzory? Jaký typ napájení? Arduino, co to vůbec je. Mnoho otázek a žádné odpovědi.<br><br><strong>Řešení:</strong> Zde bych chtěl dát obrovský Shoutout panu Ing. Petru Krejčiříkovi, který byl výborným konzultantem a vždy mi dokázal odpovědět na mé ne vždy uplně triviální dotazy.",
+            chapter4: "Kapitola 4: Iterace a dokončení",
+            chapter4Text: "Po mnoha iteracích tisku a ladění kódu se podařilo vše složit do funkčního celku.<br><br><strong>Výsledek:</strong> Stroj spolehlivě rozdává karty a šetří čas při hře. Design je navíc optimalizován pro snadný transport a výrobu.",
+            futureTitle: "Co dál?",
+            future1: "Bateriové napájení",
+            future2: "Mobilní aplikace pro nastavení",
+
         },
         en: {
             portfolio: "My Portfolio",
@@ -65,10 +97,41 @@
             miniProjects: "Mini Projects",
             semesterProject: "Semester Project",
             contact: "Contact",
-            semesterProjectTitle: "Semester Project",
-            projectDescription: "TO BE ADDED",
+            semesterProjectTitle: "CARD DEALER",
+            projectSubtitle: "AUTOMATIC CARD SHUFFLER AND DEALER",
+            projectDescription: "This project was created to enhance card games by automating the tedious shuffling and dealing process. The device uses a microcontroller to control motors that precisely deal cards to players. The entire structure is designed for 3D printing and easy home assembly.",
             backToHome: "Back to Home",
-            copyright: "© 2025 Tomáš Doubrava. All rights reserved."
+            copyright: "© 2025 Tomáš Doubrava. All rights reserved.",
+            specsTitle: "Technical Specifications",
+            spec1: "Capacity: 2 Card Decks",
+            spec2: "Speed: 1 Card / Second",
+            spec3: "Players: Up to 6",
+            spec4: "Sensors: IR Card Detection",
+            spec5: "Material: PLA + PETG",
+            spec6: "Control: Arduino / ESP32",
+            componentsTitle: "Component Breakdown",
+            comp1Title: "Main Body",
+            comp1Desc: "Central part holding motors and card hopper. Designed for support-free printing.",
+            comp2Title: "Feeder Roller",
+            comp2Desc: "Critical component with rubber surface for precise separation of single cards.",
+            comp3Title: "Dealing Base",
+            comp3Desc: "Rotating platform driven by a stepper motor. Distributes cards to players.",
+            comp4Title: "Electronics Case",
+            comp4Desc: "Protective housing for Arduino and sensors. Includes ventilation for motor drivers.",
+            journalTitle: "Development Journal",
+            chapter1: "Chapter 1: The Idea",
+            chapter1Text: "Every poker or Mau-Mau player knows it – shuffling takes time. I wanted to create a machine to do it for us.<br><br><strong>Goal:</strong> Create a compact device that reliably shuffles and deals cards without jamming.",
+            chapter2: "Chapter 2: Mechanical Nightmare",
+            chapter2Text: "The biggest challenge was separating exactly one card from the deck. First prototypes took two or jammed.",
+            chapter3: "Chapter 3: Electronics & Sensors",
+            chapter3Text: "How to detect if a card was dealt? I needed reliable detection.",
+            chapter4: "Chapter 4: Final Assembly",
+            chapter4Text: "After many print iterations and code debugging, everything came together to form a functional unit.",
+            futureTitle: "What's Next?",
+            future1: "Battery Power",
+            future2: "Mobile App for Settings",
+            future3: "Support for Different Card Sizes",
+            future4: "OLED Display for Status"
         },
         de: {
             portfolio: "Mein Portfolio",
@@ -76,10 +139,41 @@
             miniProjects: "Mini-Projekte",
             semesterProject: "Semesterprojekt",
             contact: "Kontakt",
-            semesterProjectTitle: "Semesterprojekt",
-            projectDescription: "HINZUZUFÜGEN",
+            semesterProjectTitle: "CARD DEALER",
+            projectSubtitle: "AUTOMATISCHER KARTENMISCHER UND -GEBER",
+            projectDescription: "Dieses Projekt wurde erstellt, um Kartenspiele zu verbessern, indem der mühsame Misch- und Verteilprozess automatisiert wird. Das Gerät verwendet einen Mikrocontroller zur Steuerung von Motoren, die Karten präzise an Spieler verteilen. Die gesamte Struktur ist für den 3D-Druck und eine einfache Montage zu Hause ausgelegt.",
             backToHome: "Zurück zur Startseite",
-            copyright: "© 2025 Tomáš Doubrava. Alle Rechte vorbehalten."
+            copyright: "© 2025 Tomáš Doubrava. Alle Rechte vorbehalten.",
+            specsTitle: "Technische Daten",
+            spec1: "Kapazität: 2 Kartendecks",
+            spec2: "Geschwindigkeit: 1 Karte / Sekunde",
+            spec3: "Spieler: Bis zu 6",
+            spec4: "Sensoren: IR-Kartenerkennung",
+            spec5: "Material: PLA + PETG",
+            spec6: "Steuerung: Arduino / ESP32",
+            componentsTitle: "Komponentenübersicht",
+            comp1Title: "Hauptgehäuse",
+            comp1Desc: "Zentraler Teil, der Motoren und Kartenmagazin hält. Entwickelt für stützenfreien Druck.",
+            comp2Title: "Zuführwalze",
+            comp2Desc: "Kritische Komponente mit Gummioberfläche für die präzise Trennung einzelner Karten.",
+            comp3Title: "Verteilbasis",
+            comp3Desc: "Drehbare Plattform, angetrieben von einem Schrittmotor. Verteilt Karten an Spieler.",
+            comp4Title: "Elektronikgehäuse",
+            comp4Desc: "Schutzgehäuse für Arduino und Sensoren. Enthält Belüftung für Motortreiber.",
+            journalTitle: "Entwicklungstagebuch",
+            chapter1: "Kapitel 1: Die Idee",
+            chapter1Text: "Jeder Poker- oder Mau-Mau-Spieler kennt es – Mischen kostet Zeit. Ich wollte eine Maschine bauen, die das für uns erledigt.<br><br><strong>Ziel:</strong> Ein kompaktes Gerät schaffen, das Karten zuverlässig mischt und austeilt, ohne zu blockieren.",
+            chapter2: "Kapitel 2: Mechanischer Albtraum",
+            chapter2Text: "Die größte Herausforderung war, immer genau eine Karte vom Stapel zu trennen. Die ersten Prototypen nahmen zwei oder klemmten.",
+            chapter3: "Kapitel 3: Elektronik & Sensoren",
+            chapter3Text: "Wie erkennt man, ob eine Karte ausgeteilt wurde? Ich brauchte eine zuverlässige Erkennung.",
+            chapter4: "Kapitel 4: Endmontage",
+            chapter4Text: "Nach vielen Druckiterationen und Code-Debugging gelang es, alles zu einer funktionierenden Einheit zusammenzubauen.",
+            futureTitle: "Was kommt als nächstes?",
+            future1: "Batteriebetrieb",
+            future2: "Mobile App für Einstellungen",
+            future3: "Unterstützung für verschiedene Kartengrößen",
+            future4: "OLED-Display für Status"
         }
     };
 
@@ -100,6 +194,14 @@
             const key = elem.getAttribute('data-i18n');
             if (translations[lang] && translations[lang][key]) {
                 elem.textContent = translations[lang][key];
+            }
+        });
+
+        // Update elements with html content (e.g. bold tags)
+        document.querySelectorAll('[data-i18n-html]').forEach(elem => {
+            const key = elem.getAttribute('data-i18n-html');
+            if (translations[lang] && translations[lang][key]) {
+                elem.innerHTML = translations[lang][key];
             }
         });
     }
@@ -183,15 +285,439 @@
         <h1 class="text-4xl font-extrabold text-teal-600 mb-2" data-i18n="semesterProjectTitle">Semestrální projekt</h1>
         <p class="text-lg text-gray-600 dark:text-gray-300"></p>
     </header>
-    <main class="flex-1 flex flex-col items-center justify-center">
-        <section class="rounded-xl shadow-lg p-8 max-w-2xl w-full text-center bg-gradient-to-br from-teal-500 to-blue-500 text-white">
-            <a href="images/velkyprojekt.png" target="_blank" rel="noopener">
-                <img src="images/velkyprojekt.png" alt="Semestrální projekt" class="mx-auto mb-6 rounded-xl shadow-lg border-4 border-white w-full max-w-md cursor-zoom-in transition hover:scale-105">
-            </a>
-            <h2 class="text-2xl font-bold mb-4">CARD SHUFFLER AND DEALER</h2>
-            <p class="mb-6" data-i18n="projectDescription">DOPLNIT</p>
-            <a href="index.html" class="bg-white text-teal-600 font-bold py-2 px-4 rounded transition hover:bg-gray-100" data-i18n="backToHome">Zpět na hlavní stránku</a>
+    <main class="flex-1 w-full max-w-6xl mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section class="rounded-xl shadow-lg p-8 mb-12 bg-white dark:bg-gray-800 transition duration-300">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="w-full md:w-1/2 h-[400px] bg-gray-100 rounded-xl overflow-hidden relative">
+                    <!-- 3D Model Viewer -->
+                    <!-- Nahraďte src="path/to/model.glb" cestou k vašemu souboru .glb -->
+                    <model-viewer 
+                        src="models/projekt.glb" 
+                        poster="images/velkyprojekt.png" 
+                        alt="3D model semestrálního projektu" 
+                        shadow-intensity="1" 
+                        camera-controls 
+                        auto-rotate
+                        touch-action="pan-y"
+                        class="w-full h-full">
+                        
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none" slot="poster">
+                            <div class="bg-black/50 text-white px-4 py-2 rounded-full backdrop-blur-sm animate-pulse">
+                                Načítání 3D modelu...
+                            </div>
+                        </div>
+                    </model-viewer>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-2 text-teal-600 dark:text-teal-400" data-i18n="projectSubtitle">3-OSÝ STABILIZAČNÍ SYSTÉM KAMERY</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed" data-i18n="projectDescription">
+                        AxisCore vznikl jako ambiciózní experiment s cílem vytvořit plně funkční 3osý stabilizátor kamery pouze pomocí 3D tisku a dostupné elektroniky. Hlavní myšlenkou bylo dokázat, že i v domácích podmínkách lze dosáhnout profesionální úrovně stabilizace a designu. Celý systém je modulární, což umožňuje snadnou výměnu dílů a upgrady.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm font-semibold">3D Print</span>
+                        <span class="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm font-semibold">ESP32</span>
+                        <span class="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm font-semibold">C++</span>
+                        <span class="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm font-semibold">PID Control</span>
+                    </div>
+                </div>
+            </div>
         </section>
+
+        <!-- Specs Section -->
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100" data-i18n="specsTitle">Technické specifikace</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border-l-4 border-teal-500">
+                    <p class="text-lg font-semibold text-gray-800 dark:text-gray-200" data-i18n="spec1">3-osá stabilizace</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border-l-4 border-teal-500">
+                    <p class="text-lg font-semibold text-gray-800 dark:text-gray-200" data-i18n="spec2">Výdrž 6h</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border-l-4 border-teal-500">
+                    <p class="text-lg font-semibold text-gray-800 dark:text-gray-200" data-i18n="spec3">Hmotnost 850g</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border-l-4 border-teal-500">
+                    <p class="text-lg font-semibold text-gray-800 dark:text-gray-200" data-i18n="spec4">Nosnost 1200g</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border-l-4 border-teal-500">
+                    <p class="text-lg font-semibold text-gray-800 dark:text-gray-200" data-i18n="spec5">PETG + CF-Nylon</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border-l-4 border-teal-500">
+                    <p class="text-lg font-semibold text-gray-800 dark:text-gray-200" data-i18n="spec6">3x BLDC</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Components Breakdown Section -->
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100" data-i18n="componentsTitle">Přehled komponent</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Component 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden p-6 hover:shadow-xl transition relative group">
+                    <div class="h-64 bg-gray-100 rounded-lg overflow-hidden mb-4 relative">
+                        <!-- Model placeholder for component 1 -->
+                        <model-viewer 
+                            src="models/projekt1.glb" 
+                            poster="images/velkyprojekt.png" 
+                            alt="Komponenta 1" 
+                            shadow-intensity="1" 
+                            camera-controls 
+                            auto-rotate
+                            class="w-full h-full">
+                             <div class="absolute inset-0 flex items-center justify-center pointer-events-none" slot="poster">
+                                <div class="bg-black/50 text-white px-2 py-1 text-sm rounded backdrop-blur-sm">
+                                    3D Model
+                                </div>
+                            </div>
+                        </model-viewer>
+                    </div>
+                    <h4 class="text-xl font-bold text-teal-600 mb-2" data-i18n="comp1Title">Hlavní tělo</h4>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm" data-i18n="comp1Desc">
+                        Centrální část zařízení, která drží motory a zásobník na karty. Navrženo pro tisk bez podpor.
+                    </p>
+                     <div class="mt-4 flex gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
+                        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">PLA</span>
+                        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">425g</span>
+                    </div>
+                </div>
+
+                <!-- Component 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden p-6 hover:shadow-xl transition relative group">
+                    <div class="h-64 bg-gray-100 rounded-lg overflow-hidden mb-4 relative">
+                         <model-viewer 
+                            src="models/viko.glb" 
+                            poster="images/velkyprojekt.png" 
+                            alt="Komponenta 2" 
+                            shadow-intensity="1" 
+                            camera-controls 
+                            auto-rotate
+                            class="w-full h-full">
+                             <div class="absolute inset-0 flex items-center justify-center pointer-events-none" slot="poster">
+                                <div class="bg-black/50 text-white px-2 py-1 text-sm rounded backdrop-blur-sm">
+                                    3D Model
+                                </div>
+                            </div>
+                        </model-viewer>
+                    </div>
+                    <h4 class="text-xl font-bold text-teal-600 mb-2" data-i18n="comp2Title">Víko</h4>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm" data-i18n="comp2Desc">
+                        Kritická součástka s najvíce iteracemi.
+                    </p>
+                    <div class="mt-4 flex gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
+                        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">PLA</span>
+                        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">198g</span>
+                    </div>
+                </div>
+
+                <!-- Component 3 -->
+               <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden p-6 hover:shadow-xl transition relative group">
+                    <div class="h-64 bg-gray-100 rounded-lg overflow-hidden mb-4 relative flex gap-px">
+                         <!-- Left Roller -->
+                         <div class="w-1/2 h-full relative">
+                            <model-viewer 
+                                src="models/podavac1.glb" 
+                                poster="images/velkyprojekt.png" 
+                                alt="Komponenta 3 - Levý" 
+                                shadow-intensity="1" 
+                                camera-controls 
+                                auto-rotate
+                                class="w-full h-full bg-gray-50">
+                                <div class="absolute inset-0 flex items-center justify-center pointer-events-none" slot="poster">
+                                    <div class="bg-black/50 text-white px-2 py-1 text-sm rounded backdrop-blur-sm">
+                                        Levý
+                                    </div>
+                                </div>
+                            </model-viewer>
+                         </div>
+                         <!-- Right Roller -->
+                         <div class="w-1/2 h-full relative">
+                             <model-viewer 
+                                src="models/podavac.glb" 
+                                poster="images/velkyprojekt.png" 
+                                alt="Komponenta 3 - Pravý" 
+                                shadow-intensity="1" 
+                                camera-controls 
+                                auto-rotate-delay="1000"
+                                auto-rotate
+                                class="w-full h-full bg-gray-50">
+                                <div class="absolute inset-0 flex items-center justify-center pointer-events-none" slot="poster">
+                                    <div class="bg-black/50 text-white px-2 py-1 text-sm rounded backdrop-blur-sm">
+                                        Pravý
+                                    </div>
+                                </div>
+                            </model-viewer>
+                         </div>
+                    </div>
+                    <h4 class="text-xl font-bold text-teal-600 mb-2" data-i18n="comp3Title">Podávací válce</h4>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm" data-i18n="comp3Desc">
+                        Podávací válce pro míchaní a vyhazování karet.
+                    </p>
+                    <div class="mt-4 flex gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
+                        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">PETG</span>
+                        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">212g</span>
+                    </div>
+                </div>
+
+                 <!-- Component 4 -->
+               <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden p-6 hover:shadow-xl transition relative group">
+                    <!-- Custom layout: 2 small on top, 1 big below -->
+                    <div class="h-96 bg-gray-100 rounded-lg overflow-hidden mb-4 relative flex flex-col gap-1">
+                        <!-- Top Row: 2 Models -->
+                        <div class="h-1/2 flex gap-1">
+                             <div class="w-1/2 h-full relative">
+                                <model-viewer 
+                                    src="models/vyhazovac1.glb" 
+                                    poster="images/velkyprojekt.png" 
+                                    alt="Vyhazovací část - Detail 1" 
+                                    shadow-intensity="1" 
+                                    camera-controls 
+                                    auto-rotate
+                                    class="w-full h-full bg-gray-50">
+                                     <div class="absolute inset-0 flex items-center justify-center pointer-events-none" slot="poster">
+                                        <div class="bg-black/50 text-white px-2 py-1 text-sm rounded backdrop-blur-sm">
+                                            Top 1
+                                        </div>
+                                    </div>
+                                </model-viewer>
+                            </div>
+                             <div class="w-1/2 h-full relative">
+                                <model-viewer 
+                                    src="models/vyhazovac2.glb" 
+                                    poster="images/velkyprojekt.png" 
+                                    alt="Vyhazovací část - Detail 2" 
+                                    shadow-intensity="1" 
+                                    camera-controls 
+                                    auto-rotate-delay="1000"
+                                    auto-rotate
+                                    class="w-full h-full bg-gray-50">
+                                     <div class="absolute inset-0 flex items-center justify-center pointer-events-none" slot="poster">
+                                        <div class="bg-black/50 text-white px-2 py-1 text-sm rounded backdrop-blur-sm">
+                                            Top 2
+                                        </div>
+                                    </div>
+                                </model-viewer>
+                            </div>
+                        </div>
+                        <!-- Bottom Row: 1 Big Model -->
+                        <div class="h-1/2 relative">
+                             <model-viewer 
+                                src="models/vyhazovac3.glb" 
+                                poster="images/velkyprojekt.png" 
+                                alt="Vyhazovací část - Celá" 
+                                shadow-intensity="1" 
+                                camera-controls 
+                                auto-rotate-delay="2000"
+                                auto-rotate
+                                class="w-full h-full bg-gray-50">
+                                 <div class="absolute inset-0 flex items-center justify-center pointer-events-none" slot="poster">
+                                    <div class="bg-black/50 text-white px-2 py-1 text-sm rounded backdrop-blur-sm">
+                                        Bottom (Main)
+                                    </div>
+                                </div>
+                            </model-viewer>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-bold text-teal-600 mb-2" data-i18n="comp4Title">Vyhazovací část</h4>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm" data-i18n="comp4Desc">
+                        Mechanismus pro vyhazování karet hráčům.
+                    </p>
+                    <div class="mt-4 flex gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
+                        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">PLA</span>
+                        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">156g</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Journal -->
+        <section class="mb-12">
+            <h3 class="text-3xl font-bold mb-12 text-center text-gray-800 dark:text-gray-100 uppercase tracking-widest" data-i18n="journalTitle">Deník vývoje</h3>
+            
+            <style>
+                @keyframes scroll-carousel {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+                .carousel-track {
+                    animation: scroll-carousel 20s linear infinite;
+                    width: 200%;
+                }
+                .carousel-track:hover {
+                    animation-play-state: paused;
+                }
+            </style>
+
+            <div class="space-y-4" id="journal-accordion">
+                <!-- Chapter 1 -->
+                <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800">
+                    <button class="w-full px-6 py-4 flex items-center justify-between transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 text-left focus:outline-none" onclick="toggleAccordion('chapter1-content', this)">
+                        <span class="text-xl font-bold text-teal-600" data-i18n="chapter1">Kapitola 1: Nápad</span>
+                        <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="chapter1-content" class="chapter-content hidden px-6 pb-6 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+                        <div class="flex flex-col md:flex-row gap-8 items-center mt-4 mb-6">
+                            <!-- Text Column -->
+                            <div class="md:w-3/5 prose dark:prose-invert max-w-none">
+                                <p class="text-gray-700 dark:text-gray-300 leading-relaxed" data-i18n-html="chapter1Text">
+                                    Každý hráč pokeru nebo prší to zná – míchání zdržuje. Chtěl jsem vytvořit stroj, který to udělá za nás.<br><br><strong>Cíl:</strong> Vytvořit kompaktní zařízení, které spolehlivě zamíchá a rozdá karty bez zasekávání.
+                                </p>
+                            </div>
+                            <!-- Carousel Column -->
+                            <div class="md:w-2/5 w-full h-48 overflow-hidden relative rounded-xl shadow-lg bg-gray-200 dark:bg-gray-900 border border-gray-200 dark:border-gray-600">
+                                <div class="flex absolute h-full carousel-track">
+                                    <!-- Original Set -->
+                                    <div class="flex w-1/2 justify-around items-center gap-2 px-2">
+                                        <img src="images/kap1.jpg" alt="Idea Sketch" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                        <img src="images/kap11.png" alt="Prototyping" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                    </div>
+                                    <!-- Duplicate Set -->
+                                    <div class="flex w-1/2 justify-around items-center gap-2 px-2">
+                                        <img src="images/kap1.jpg" alt="Idea Sketch" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                        <img src="images/kap11.png" alt="Prototyping" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 2 -->
+                <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800">
+                    <button class="w-full px-6 py-4 flex items-center justify-between transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 text-left focus:outline-none" onclick="toggleAccordion('chapter2-content', this)">
+                        <span class="text-xl font-bold text-teal-600" data-i18n="chapter2">Kapitola 2: Mechanická noční můra</span>
+                        <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="chapter2-content" class="chapter-content hidden px-6 pb-6 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+                        <div class="flex flex-col md:flex-row gap-8 items-center mt-4 mb-6">
+                            <div class="md:w-3/5 prose dark:prose-invert max-w-none">
+                                <p class="text-gray-700 dark:text-gray-300 leading-relaxed" data-i18n-html="chapter2Text">
+                                    Největší výzvou bylo oddělit z balíčku vždy právě jednu kartu. První prototypy braly dvě nebo se zasekávaly.
+                                </p>
+                            </div>
+                            <div class="md:w-2/5 w-full h-48 overflow-hidden relative rounded-xl shadow-lg bg-gray-200 dark:bg-gray-900 border border-gray-200 dark:border-gray-600">
+                                <div class="flex absolute h-full carousel-track">
+                                    <div class="flex w-1/2 justify-around items-center gap-2 px-2">
+                                        <img src="images/kap2.jpg" alt="Mechanism" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                        <video src="images/kap2.mp4" autoplay loop muted playsinline class="h-full w-auto object-cover rounded-lg shadow-sm"></video>
+                                    </div>
+                                    <div class="flex w-1/2 justify-around items-center gap-2 px-2">
+                                        <img src="images/kap2.jpg" alt="Mechanism" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                        <video src="images/kap2.mp4" autoplay loop muted playsinline class="h-full w-auto object-cover rounded-lg shadow-sm"></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 3 -->
+                <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800">
+                    <button class="w-full px-6 py-4 flex items-center justify-between transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 text-left focus:outline-none" onclick="toggleAccordion('chapter3-content', this)">
+                        <span class="text-xl font-bold text-teal-600" data-i18n="chapter3">Kapitola 3: Elektronika a senzory</span>
+                        <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="chapter3-content" class="chapter-content hidden px-6 pb-6 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+                        <div class="flex flex-col md:flex-row gap-8 items-center mt-4 mb-6">
+                            <div class="md:w-3/5 prose dark:prose-invert max-w-none">
+                                <p class="text-gray-700 dark:text-gray-300 leading-relaxed" data-i18n-html="chapter3Text">
+                                    Jak poznat, že karta byla rozdána? Potřeboval jsem spolehlivou detekci.
+                                </p>
+                            </div>
+                            <div class="md:w-2/5 w-full h-48 overflow-hidden relative rounded-xl shadow-lg bg-gray-200 dark:bg-gray-900 border border-gray-200 dark:border-gray-600">
+                                <div class="flex absolute h-full carousel-track">
+                                    <div class="flex w-1/2 justify-around items-center gap-2 px-2">
+                                        <img src="images/kap3.jpg" alt="PCB" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                        <video src="images/kap3.mp4" autoplay loop muted playsinline class="h-full w-auto object-cover rounded-lg shadow-sm"></video>
+                                    </div>
+                                    <div class="flex w-1/2 justify-around items-center gap-2 px-2">
+                                        <img src="images/kap3.jpg" alt="PCB" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                        <video src="images/kap3.mp4" autoplay loop muted playsinline class="h-full w-auto object-cover rounded-lg shadow-sm"></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Chapter 4 -->
+                 <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800">
+                    <button class="w-full px-6 py-4 flex items-center justify-between transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 text-left focus:outline-none" onclick="toggleAccordion('chapter4-content', this)">
+                        <span class="text-xl font-bold text-teal-600" data-i18n="chapter4">Kapitola 4: Finální montáž</span>
+                        <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="chapter4-content" class="chapter-content hidden px-6 pb-6 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+                        <div class="flex flex-col md:flex-row gap-8 items-center mt-4 mb-6">
+                            <div class="md:w-3/5 prose dark:prose-invert max-w-none">
+                                <p class="text-gray-700 dark:text-gray-300 leading-relaxed" data-i18n-html="chapter4Text">
+                                    Po mnoha iteracích tisku a ladění kódu se podařilo vše složit do funkčního celku.
+                                </p>
+                            </div>
+                            <div class="md:w-2/5 w-full h-48 overflow-hidden relative rounded-xl shadow-lg bg-gray-200 dark:bg-gray-900 border border-gray-200 dark:border-gray-600">
+                                <div class="flex absolute h-full carousel-track">
+                                    <div class="flex w-1/2 justify-around items-center gap-2 px-2">
+                                        <img src="images/14.jpg" alt="Final 1" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                        <img src="images/15.jpg" alt="Final 2" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                        <img src="images/1.jpg" alt="Final 3" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                    </div>
+                                    <div class="flex w-1/2 justify-around items-center gap-2 px-2">
+                                        <img src="images/14.jpg" alt="Final 1" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                        <img src="images/15.jpg" alt="Final 2" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                        <img src="images/1.jpg" alt="Final 3" class="h-full w-auto object-cover rounded-lg shadow-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <script>
+                function toggleAccordion(contentId, button) {
+                    const content = document.getElementById(contentId);
+                    const icon = button.querySelector('svg');
+                    const allContents = document.querySelectorAll('.chapter-content');
+                    const allIcons = document.querySelectorAll('#journal-accordion button svg');
+
+                    // Close all others
+                    allContents.forEach((el) => {
+                        if (el.id !== contentId) {
+                            el.classList.add('hidden');
+                        }
+                    });
+                    
+                    allIcons.forEach((el) => {
+                        if (el !== icon) {
+                            el.classList.remove('rotate-180');
+                        }
+                    });
+
+                    // Toggle current
+                    if (content.classList.contains('hidden')) {
+                        content.classList.remove('hidden');
+                        icon.classList.add('rotate-180');
+                    } else {
+                        content.classList.add('hidden');
+                        icon.classList.remove('rotate-180');
+                    }
+                }
+            </script>
+        </section>
+
+        <!-- Future -->
+        <section class="mb-12 text-center">
+             <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100" data-i18n="futureTitle">Co dál?</h3>
+             <div class="flex flex-wrap justify-center gap-4">
+                <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg font-medium" data-i18n="future1">Bezdrátové nabíjení</span>
+                <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg font-medium" data-i18n="future2">Bluetooth aplikace</span>
+                <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg font-medium" data-i18n="future3">Sledování objektů</span>
+                <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg font-medium" data-i18n="future4">Magnetické enkodéry</span>
+             </div>
+        </section>
+
+        <div class="text-center">
+            <a href="index.html" class="inline-block bg-teal-600 text-white font-bold py-3 px-8 rounded-lg shadow hover:bg-teal-700 transition" data-i18n="backToHome">Zpět na hlavní stránku</a>
+        </div>
     </main>
     <footer class="py-8 text-right text-sm text-gray-500 dark:text-gray-400">
         <p data-i18n="copyright">&copy; 2025 Tomáš Doubrava. Všechna práva vyhrazena.</p>
